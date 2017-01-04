@@ -19,7 +19,16 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    // TODO add signing config
+    signingConfigs {
+        // For demo purposes only.
+        // Do not upload real keystore credentials to version control!
+        release {
+            storeFile file('../keystore.jks')
+            storePassword 'qwerty'
+            keyAlias 'alias'
+            keyPassword 'qwerty'
+        }
+    }
 
     buildTypes {
         debug {
@@ -36,6 +45,7 @@ android {
             zipAlignEnabled true
             buildConfigField "String", "BASE_URL", "\"https://api.tmsandbox.co.nz/v1/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
