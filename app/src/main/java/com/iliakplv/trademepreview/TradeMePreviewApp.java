@@ -32,7 +32,6 @@ public class TradeMePreviewApp extends Application {
     protected DaggerApplicationComponent.Builder prepareApplicationComponent() {
         return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
-                // This url may be changed dynamically for tests! See ChangeableBaseUrl.
                 .apiModule(new ApiModule(BuildConfig.BASE_URL));
     }
 

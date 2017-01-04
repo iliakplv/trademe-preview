@@ -1,4 +1,4 @@
-package com.iliakplv.trademepreview.ui;
+package com.iliakplv.trademepreview.ui.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.dummy.DummyContent;
+import com.iliakplv.trademepreview.ui.activities.CategoryDetailActivity;
+import com.iliakplv.trademepreview.ui.activities.CategoryListActivity;
 
 /**
  * A fragment representing a single Category detail screen.

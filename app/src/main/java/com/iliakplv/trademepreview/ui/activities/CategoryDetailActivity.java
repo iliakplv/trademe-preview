@@ -1,15 +1,15 @@
-package com.iliakplv.trademepreview.ui;
+package com.iliakplv.trademepreview.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.iliakplv.trademepreview.R;
+import com.iliakplv.trademepreview.ui.fragments.CategoryDetailFragment;
 
 /**
  * An activity representing a single Category detail screen. This
@@ -17,7 +17,7 @@ import com.iliakplv.trademepreview.R;
  * item details are presented side-by-side with a list of items
  * in a {@link CategoryListActivity}.
  */
-public class CategoryDetailActivity extends AppCompatActivity {
+public class CategoryDetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

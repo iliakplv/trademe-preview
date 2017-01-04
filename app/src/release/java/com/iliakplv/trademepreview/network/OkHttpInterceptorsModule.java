@@ -9,8 +9,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Interceptor;
-import okhttp3.logging.HttpLoggingInterceptor;
-import timber.log.Timber;
 
 import static java.util.Collections.emptyList;
 

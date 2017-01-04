@@ -14,7 +14,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.OkHttpClient;
 
 @Module
 public class ApplicationModule {
@@ -54,7 +53,7 @@ public class ApplicationModule {
     @Provides
     @NonNull
     @Singleton
-    public Picasso providePicasso(@NonNull Application tradeMePreviewApp, @NonNull OkHttpClient okHttpClient) {
+    public Picasso providePicasso(@NonNull Application tradeMePreviewApp) {
         return new Picasso.Builder(tradeMePreviewApp).build();
     }
 

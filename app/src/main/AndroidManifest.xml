@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.CategoryListActivity"
+            android:name=".ui.activities.CategoryListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,13 +23,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.CategoryDetailActivity"
+            android:name=".ui.activities.CategoryDetailActivity"
             android:label="@string/title_category_detail"
-            android:parentActivityName=".ui.CategoryListActivity"
+            android:parentActivityName=".ui.activities.CategoryListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.iliakplv.trademepreview.ui.CategoryListActivity"/>
+                android:value="com.iliakplv.trademepreview.ui.activities.CategoryListActivity"/>
         </activity>
     </application>
 
