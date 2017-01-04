@@ -11,6 +11,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
@@ -37,6 +38,7 @@ public class ApiModule {
         return new Retrofit.Builder()
                 .baseUrl(changeableBaseUrl)
                 .client(okHttpClient)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .validateEagerly(BuildConfig.DEBUG)  // check Retrofit configuration at creation time in Debug build.
                 .build()

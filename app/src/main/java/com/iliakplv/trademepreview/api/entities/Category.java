@@ -1,8 +1,9 @@
-package com.iliakplv.trademepreview.model;
+package com.iliakplv.trademepreview.api.entities;
 
 
 import com.google.gson.annotations.SerializedName;
-import com.iliakplv.trademepreview.common.StringUtils;
+
+import static com.iliakplv.trademepreview.common.StringUtils.getLastDigitGroup;
 
 public class Category {
 
@@ -37,8 +38,7 @@ public class Category {
     }
 
     public String getShortNumber() {
-        // TODO refactor
-        return StringUtils.getLastDigitGroup(number, NUMBER_SEPARATOR);
+        return getLastDigitGroup(number, NUMBER_SEPARATOR);
     }
 
     public String getPath() {

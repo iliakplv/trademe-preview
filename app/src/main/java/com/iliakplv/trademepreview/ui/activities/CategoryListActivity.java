@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.iliakplv.trademepreview.R;
-import com.iliakplv.trademepreview.api.TradeMeApi;
 import com.iliakplv.trademepreview.dummy.DummyContent;
+import com.iliakplv.trademepreview.model.CategoriesModel;
 import com.iliakplv.trademepreview.ui.fragments.CategoryDetailFragment;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public class CategoryListActivity extends BaseActivity {
     private boolean mTwoPane;
 
     @Inject
-    TradeMeApi tradeMeApi;
+    CategoriesModel categoriesModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 public final class StringUtils {
 
 
+    // TODO refactor
     /**
      * Extracts last digit group from full number format
      *
