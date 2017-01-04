@@ -4,7 +4,7 @@
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
                                                  android:fitsSystemWindows="true"
-                                                 tools:context="com.iliakplv.trademepreview.CategoryDetailActivity"
+                                                 tools:context="com.iliakplv.trademepreview.ui.CategoryDetailActivity"
                                                  tools:ignore="MergeRootFrame">
 
     <android.support.design.widget.AppBarLayout

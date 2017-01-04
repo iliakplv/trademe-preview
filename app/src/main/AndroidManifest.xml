@@ -3,13 +3,14 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
+        android:name=".TradeMePreviewApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".CategoryListActivity"
+            android:name=".ui.CategoryListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,13 +20,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CategoryDetailActivity"
+            android:name=".ui.CategoryDetailActivity"
             android:label="@string/title_category_detail"
-            android:parentActivityName=".CategoryListActivity"
+            android:parentActivityName=".ui.CategoryListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.iliakplv.trademepreview.CategoryListActivity"/>
+                android:value="com.iliakplv.trademepreview.ui.CategoryListActivity"/>
         </activity>
     </application>
 

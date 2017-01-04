@@ -1,4 +1,4 @@
-package com.iliakplv.trademepreview;
+package com.iliakplv.trademepreview.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.dummy.DummyContent;
 
 /**

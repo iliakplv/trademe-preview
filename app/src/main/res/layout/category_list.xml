@@ -9,5 +9,5 @@
                                         android:layout_marginLeft="16dp"
                                         android:layout_marginRight="16dp"
                                         app:layoutManager="LinearLayoutManager"
-                                        tools:context="com.iliakplv.trademepreview.CategoryListActivity"
+                                        tools:context="com.iliakplv.trademepreview.ui.CategoryListActivity"
                                         tools:listitem="@layout/category_list_content"/>
