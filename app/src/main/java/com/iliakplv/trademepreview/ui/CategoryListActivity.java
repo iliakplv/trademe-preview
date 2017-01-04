@@ -15,9 +15,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.iliakplv.trademepreview.R;
+import com.iliakplv.trademepreview.TradeMePreviewApp;
+import com.iliakplv.trademepreview.api.TradeMeApi;
 import com.iliakplv.trademepreview.dummy.DummyContent;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * An activity representing a list of Categories. This activity
@@ -35,9 +39,13 @@ public class CategoryListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
 
+    @Inject
+    TradeMeApi tradeMeApi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TradeMePreviewApp.get(this).applicationComponent().inject(this);
         setContentView(R.layout.activity_category_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
