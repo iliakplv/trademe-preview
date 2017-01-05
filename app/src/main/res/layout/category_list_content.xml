@@ -7,10 +7,21 @@
 
     <TextView
         android:id="@+id/category_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
+        android:layout_weight="1"
         android:textColor="@color/list_item_text_color"
         android:textSize="@dimen/list_item_text_size"/>
+
+    <ImageView
+        android:id="@+id/select_button"
+        android:layout_width="64dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="8dp"
+        android:src="@drawable/ic_arrow_right"
+        android:tint="@color/colorAccent"/>
 
 </LinearLayout>

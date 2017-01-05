@@ -1,5 +1,6 @@
 package com.iliakplv.trademepreview.ui.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -47,8 +48,8 @@ public class CategoryDetailActivity extends BaseActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(CategoryDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(CategoryDetailFragment.ARG_ITEM_ID));
+            arguments.putString(CategoryDetailFragment.ARG_CATEGORY_NUMBER,
+                    getIntent().getStringExtra(CategoryDetailFragment.ARG_CATEGORY_NUMBER));
             CategoryDetailFragment fragment = new CategoryDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -71,5 +72,12 @@ public class CategoryDetailActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public static void startForCategory(Activity activity, String categoryNumber) {
+        Intent intent = new Intent(activity, CategoryDetailActivity.class);
+        intent.putExtra(CategoryDetailFragment.ARG_CATEGORY_NUMBER, categoryNumber);
+        activity.startActivity(intent);
     }
 }

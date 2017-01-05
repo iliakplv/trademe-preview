@@ -90,9 +90,24 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     }
 
     @Override
-    public void onCategorySelected(Category category) {
+    public void onCategoryClicked(Category category) {
         onLoadingStarted();
         presenter.loadCategory(category.getNumber());
+    }
+
+    @Override
+    public void onCategorySelected(Category category) {
+        if (twoPane) {
+//            Bundle arguments = new Bundle();
+//            arguments.putString(CategoryDetailFragment.ARG_CATEGORY_NUMBER, holder.mItem.id);
+//            CategoryDetailFragment fragment = new CategoryDetailFragment();
+//            fragment.setArguments(arguments);
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.category_detail_container, fragment)
+//                    .commit();
+        } else {
+            CategoryDetailActivity.startForCategory(this, category.getNumber());
+        }
     }
 
     @Override
@@ -108,71 +123,4 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
         }
     }
 
-    /*
-    public class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
-
-        private final List<DummyContent.DummyItem> mValues;
-
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
-            mValues = items;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.category_list_content, parent, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
-
-            holder.mView.setOnClickListener(v -> {
-                if (twoPane) {
-                    Bundle arguments = new Bundle();
-                    arguments.putString(CategoryDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-                    CategoryDetailFragment fragment = new CategoryDetailFragment();
-                    fragment.setArguments(arguments);
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.category_detail_container, fragment)
-                            .commit();
-                } else {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, CategoryDetailActivity.class);
-                    intent.putExtra(CategoryDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-
-                    context.startActivity(intent);
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return mValues.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final TextView mIdView;
-            public final TextView mContentView;
-            public DummyContent.DummyItem mItem;
-
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
-            }
-
-            @Override
-            public String toString() {
-                return super.toString() + " '" + mContentView.getText() + "'";
-            }
-        }
-    }
-    */
 }

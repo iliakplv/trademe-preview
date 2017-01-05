@@ -48,20 +48,26 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView categoryName;
+        View selectButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            categoryName = (TextView) itemView.findViewById(R.id.category_name);
-            itemView.setOnClickListener(this);
-        }
 
-        @Override
-        public void onClick(View v) {
-            final int position = getAdapterPosition();
-            view.onCategorySelected(category.getSubcategories()[position]);
+            categoryName = (TextView) itemView.findViewById(R.id.category_name);
+
+            itemView.setOnClickListener(v -> {
+                final int position = getAdapterPosition();
+                view.onCategoryClicked(category.getSubcategories()[position]);
+            });
+
+            selectButton = itemView.findViewById(R.id.select_button);
+            selectButton.setOnClickListener(v -> {
+                final int position = getAdapterPosition();
+                view.onCategorySelected(category.getSubcategories()[position]);
+            });
         }
     }
 }

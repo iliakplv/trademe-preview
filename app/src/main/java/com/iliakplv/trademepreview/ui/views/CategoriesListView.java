@@ -11,6 +11,8 @@ public interface CategoriesListView {
 
     void onLoadingError();
 
+    void onCategoryClicked(Category category);
+
     void onCategorySelected(Category category);
 
     /**
