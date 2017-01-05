@@ -7,6 +7,8 @@ import static com.iliakplv.trademepreview.common.StringUtils.getLastDigitGroup;
 
 public class Category {
 
+    public static final String ROOT_CATEGORY_NUMBER = "0000";
+
     public static final String NUMBER_SEPARATOR = "-";
 
 
@@ -33,11 +35,12 @@ public class Category {
         return name;
     }
 
-    public String getNumber() {
+    @Deprecated
+    public String getFullNumber() {
         return number;
     }
 
-    public String getShortNumber() {
+    public String getNumber() {
         return getLastDigitGroup(number, NUMBER_SEPARATOR);
     }
 

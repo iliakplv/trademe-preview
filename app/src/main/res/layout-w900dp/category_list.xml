@@ -11,23 +11,33 @@
               android:showDividers="middle"
               tools:context="com.iliakplv.trademepreview.ui.activities.CategoryListActivity">
 
-    <!--
-    This layout is a two-pane layout for the Categories
-    master/detail flow.
-    
-    -->
+    <LinearLayout
+        android:layout_width="@dimen/item_width"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView android:id="@+id/category_list"
-                                            android:name="com.iliakplv.trademepreview.CategoryListFragment"
-                                            xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:tools="http://schemas.android.com/tools"
-                                            android:layout_width="@dimen/item_width"
-                                            android:layout_height="match_parent"
-                                            android:layout_marginLeft="16dp"
-                                            android:layout_marginRight="16dp"
-                                            app:layoutManager="LinearLayoutManager"
-                                            tools:context="com.iliakplv.trademepreview.ui.activities.CategoryListActivity"
-                                            tools:listitem="@layout/category_list_content"/>
+        <TextView
+            android:id="@+id/category_path"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:textColor="@color/path_text_color"
+            android:textSize="@dimen/path_text_size"/>
+
+        <android.support.v7.widget.RecyclerView android:id="@+id/category_list"
+                                                android:name="com.iliakplv.trademepreview.CategoryListFragment"
+                                                xmlns:android="http://schemas.android.com/apk/res/android"
+                                                xmlns:tools="http://schemas.android.com/tools"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0dp"
+                                                android:layout_weight="1"
+                                                app:layoutManager="LinearLayoutManager"
+                                                tools:context="com.iliakplv.trademepreview.ui.activities.CategoryListActivity"
+                                                tools:listitem="@layout/category_list_content"/>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/category_detail_container"

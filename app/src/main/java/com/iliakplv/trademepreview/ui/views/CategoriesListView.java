@@ -13,4 +13,6 @@ public interface CategoriesListView {
 
     void onCategorySelected(Category category);
 
+    boolean onUpClicked();
+
 }

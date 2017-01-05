@@ -1,9 +1,11 @@
 package com.iliakplv.trademepreview.ui.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.api.entities.Category;
@@ -23,10 +25,12 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     @Inject
     CategoriesListPresenter presenter;
 
+    private CategoryListAdapter adapter;
+
     @BindView(R.id.category_list)
     RecyclerView recyclerView;
-
-    private CategoryListAdapter adapter;
+    @BindView(R.id.category_path)
+    TextView categoryPath;
 
 
     @Override
@@ -42,7 +46,7 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
         setupRecyclerView();
 
         onLoadingStarted();
-        presenter.loadCategory("0000");
+        presenter.loadCategory(Category.ROOT_CATEGORY_NUMBER);
     }
 
     @Override
@@ -58,33 +62,46 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     }
 
     private void setupRecyclerView() {
-        adapter = new CategoryListAdapter();
-        recyclerView.setHasFixedSize(true);
+        adapter = new CategoryListAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onLoadingStarted() {
-
+        // todo
     }
 
     @Override
     public void onCategoryLoaded(Category category) {
         adapter.setCategory(category);
+        categoryPath.setText(getString(R.string.all_categories, category.getPath()));
     }
 
     @Override
     public void onLoadingError() {
-
+        Snackbar.make(recyclerView, R.string.cant_load_data, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     public void onCategorySelected(Category category) {
-
+        onLoadingStarted();
+        presenter.loadCategory(category.getNumber());
     }
 
-/*
+    @Override
+    public boolean onUpClicked() {
+        return presenter.goUpInHierarchy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!onUpClicked()) {
+            super.onBackPressed();
+        }
+    }
+
+    /*
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 

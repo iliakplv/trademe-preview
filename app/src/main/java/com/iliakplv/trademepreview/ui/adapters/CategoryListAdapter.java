@@ -1,6 +1,7 @@
 package com.iliakplv.trademepreview.ui.adapters;
 
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +10,17 @@ import android.widget.TextView;
 
 import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.api.entities.Category;
+import com.iliakplv.trademepreview.ui.views.CategoriesListView;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> {
 
+    private CategoriesListView view;
     private Category category;
 
+
+    public CategoryListAdapter(@NonNull CategoriesListView view) {
+        this.view = view;
+    }
 
     public void setCategory(Category category) {
         this.category = category;
@@ -41,13 +48,20 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView categoryName;
 
         public ViewHolder(View itemView) {
             super(itemView);
             categoryName = (TextView) itemView.findViewById(R.id.category_name);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            final int position = getAdapterPosition();
+            view.onCategorySelected(category.getSubcategories()[position]);
         }
     }
 }
