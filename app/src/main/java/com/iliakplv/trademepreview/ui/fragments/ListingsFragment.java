@@ -23,6 +23,8 @@ import butterknife.ButterKnife;
 
 public class ListingsFragment extends Fragment implements ListingsView {
 
+    public static final String TAG = "ListingsFragment";
+
     public static final String ARG_TITLE = "title";
     public static final String ARG_CATEGORY_NUMBER = "category_number";
 

@@ -2,6 +2,8 @@ package com.iliakplv.trademepreview.ui.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.api.entities.Category;
 import com.iliakplv.trademepreview.ui.adapters.CategoryListAdapter;
+import com.iliakplv.trademepreview.ui.fragments.ListingsFragment;
 import com.iliakplv.trademepreview.ui.presenters.CategoriesListPresenter;
 import com.iliakplv.trademepreview.ui.views.CategoriesListView;
 
@@ -27,12 +30,14 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
 
     private CategoryListAdapter adapter;
 
-    @BindView(R.id.category_list)
-    RecyclerView recyclerView;
-    @BindView(R.id.category_path)
-    TextView categoryPath;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.progress_bar)
     View progressBar;
+    @BindView(R.id.category_path)
+    TextView categoryPath;
+    @BindView(R.id.category_list)
+    RecyclerView recyclerView;
 
 
     @Override
@@ -58,7 +63,6 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
     }
@@ -92,28 +96,47 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     @Override
     public void onCategoryClicked(Category category) {
         onLoadingStarted();
+        removeListingsFragment();
         presenter.loadCategory(category.getNumber());
     }
 
     @Override
     public void onCategorySelected(Category category) {
+        // todo pass search string here
         if (twoPane) {
-//            Bundle arguments = new Bundle();
-//            arguments.putString(CategoryDetailFragment.ARG_CATEGORY_NUMBER, holder.mItem.id);
-//            CategoryDetailFragment fragment = new CategoryDetailFragment();
-//            fragment.setArguments(arguments);
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.category_detail_container, fragment)
-//                    .commit();
+            Bundle arguments = new Bundle();
+            arguments.putString(ListingsFragment.ARG_CATEGORY_NUMBER, category.getNumber());
+            arguments.putString(ListingsFragment.ARG_TITLE, category.getName());
+            ListingsFragment fragment = new ListingsFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.category_detail_container, fragment, ListingsFragment.TAG)
+                    .commit();
         } else {
-            // todo pass search string here
             ListingsActivity.startForCategory(this, category.getNumber(), category.getName());
+        }
+    }
+
+    private void removeListingsFragment() {
+        if (twoPane) {
+            setupToolbar();
+            final FragmentManager fm = getSupportFragmentManager();
+            final Fragment fragment = fm.findFragmentByTag(ListingsFragment.TAG);
+            if (fragment != null) {
+                fm.beginTransaction()
+                        .remove(fragment)
+                        .commit();
+            }
         }
     }
 
     @Override
     public boolean onUpClicked() {
-        return presenter.goUpInHierarchy();
+        final boolean upClickConsumed = presenter.goUpInHierarchy();
+        if (upClickConsumed) {
+            removeListingsFragment();
+        }
+        return upClickConsumed;
     }
 
     @Override
