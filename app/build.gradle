@@ -36,6 +36,8 @@ android {
             minifyEnabled false
             zipAlignEnabled true
             buildConfigField "String", "BASE_URL", "\"https://api.tmsandbox.co.nz/v1/\""
+            buildConfigField "String", "CONSUMER_KEY", "\"A1AC63F0332A131A78FAC304D007E7D1\""
+            buildConfigField "String", "CONSUMER_SECRET", "\"EC7F18B17A062962C6930A8AE88B16C7\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationIdSuffix ".debug"
         }
@@ -44,6 +46,8 @@ android {
             minifyEnabled false
             zipAlignEnabled true
             buildConfigField "String", "BASE_URL", "\"https://api.tmsandbox.co.nz/v1/\""
+            buildConfigField "String", "CONSUMER_KEY", "\"A1AC63F0332A131A78FAC304D007E7D1\""
+            buildConfigField "String", "CONSUMER_SECRET", "\"EC7F18B17A062962C6930A8AE88B16C7\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }

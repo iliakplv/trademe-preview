@@ -19,4 +19,11 @@ public class ModelModule {
         return new CategoriesModelImpl(tradeMeApi);
     }
 
+    @Provides
+    @NonNull
+    @Singleton
+    public ListingsModel provideListingsModel(@NonNull TradeMeApi tradeMeApi) {
+        return new ListingsModelImpl(tradeMeApi);
+    }
+
 }
