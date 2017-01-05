@@ -10,6 +10,7 @@ import com.iliakplv.trademepreview.model.ModelModule;
 import com.iliakplv.trademepreview.network.NetworkModule;
 import com.iliakplv.trademepreview.network.OkHttpInterceptorsModule;
 import com.iliakplv.trademepreview.ui.activities.CategoryListActivity;
+import com.iliakplv.trademepreview.ui.presenters.PresenterModule;
 
 import javax.inject.Singleton;
 
@@ -22,10 +23,11 @@ import dagger.Component;
         OkHttpInterceptorsModule.class,
         ApiModule.class,
         ModelModule.class,
+        PresenterModule.class,
 })
 public interface ApplicationComponent {
 
-    // access to url, api, model, etc. for testing purposes
+    // Access to URL, API, Model, etc. for testing purposes
 
     @NonNull
     ChangeableBaseUrl changeableBaseUrl();
@@ -37,7 +39,7 @@ public interface ApplicationComponent {
     CategoriesModel categoriesModel();
 
 
-    // injections
+    // Injections
 
-    void inject(@NonNull CategoryListActivity mainActivity);
+    void inject(@NonNull CategoryListActivity activity);
 }

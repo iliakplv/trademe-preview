@@ -1,77 +1,90 @@
 package com.iliakplv.trademepreview.ui.activities;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.iliakplv.trademepreview.R;
-import com.iliakplv.trademepreview.dummy.DummyContent;
-import com.iliakplv.trademepreview.model.CategoriesModel;
-import com.iliakplv.trademepreview.ui.fragments.CategoryDetailFragment;
-
-import java.util.List;
+import com.iliakplv.trademepreview.api.entities.Category;
+import com.iliakplv.trademepreview.ui.adapters.CategoryListAdapter;
+import com.iliakplv.trademepreview.ui.presenters.CategoriesListPresenter;
+import com.iliakplv.trademepreview.ui.views.CategoriesListView;
 
 import javax.inject.Inject;
 
-/**
- * An activity representing a list of Categories. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link CategoryDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- */
-public class CategoryListActivity extends BaseActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
-    private boolean mTwoPane;
+public class CategoryListActivity extends BaseActivity implements CategoriesListView {
+
+    private boolean twoPane;
 
     @Inject
-    CategoriesModel categoriesModel;
+    CategoriesListPresenter presenter;
+
+    @BindView(R.id.category_list)
+    RecyclerView recyclerView;
+
+    private CategoryListAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getApplicationComponent().inject(this);
         setContentView(R.layout.activity_category_list);
+        ButterKnife.bind(this);
+        presenter.bindView(this);
 
+        twoPane = findViewById(R.id.category_detail_container) != null;
+        setupToolbar();
+        setupRecyclerView();
+
+        onLoadingStarted();
+        presenter.loadCategory("0000");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.unbindView(this);
+    }
+
+    private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
-
-        View recyclerView = findViewById(R.id.category_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
-
-        if (findViewById(R.id.category_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        }
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+    private void setupRecyclerView() {
+        adapter = new CategoryListAdapter();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onLoadingStarted() {
+
+    }
+
+    @Override
+    public void onCategoryLoaded(Category category) {
+        adapter.setCategory(category);
+    }
+
+    @Override
+    public void onLoadingError() {
+
+    }
+
+    @Override
+    public void onCategorySelected(Category category) {
+
+    }
+
+/*
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
@@ -95,7 +108,7 @@ public class CategoryListActivity extends BaseActivity {
             holder.mContentView.setText(mValues.get(position).content);
 
             holder.mView.setOnClickListener(v -> {
-                if (mTwoPane) {
+                if (twoPane) {
                     Bundle arguments = new Bundle();
                     arguments.putString(CategoryDetailFragment.ARG_ITEM_ID, holder.mItem.id);
                     CategoryDetailFragment fragment = new CategoryDetailFragment();
@@ -137,4 +150,5 @@ public class CategoryListActivity extends BaseActivity {
             }
         }
     }
+    */
 }
