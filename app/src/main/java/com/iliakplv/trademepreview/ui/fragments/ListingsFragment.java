@@ -9,16 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.iliakplv.trademepreview.R;
-import com.iliakplv.trademepreview.ui.activities.CategoryDetailActivity;
 import com.iliakplv.trademepreview.ui.activities.CategoryListActivity;
+import com.iliakplv.trademepreview.ui.activities.ListingsActivity;
 
 /**
  * A fragment representing a single Category detail screen.
  * This fragment is either contained in a {@link CategoryListActivity}
- * in two-pane mode (on tablets) or a {@link CategoryDetailActivity}
+ * in two-pane mode (on tablets) or a {@link ListingsActivity}
  * on handsets.
  */
-public class CategoryDetailFragment extends Fragment {
+public class ListingsFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -34,7 +34,7 @@ public class CategoryDetailFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public CategoryDetailFragment() {
+    public ListingsFragment() {
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CategoryDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.category_detail, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_listings, container, false);
 
         // Show the dummy content as text in a TextView.
 //        if (mItem != null) {

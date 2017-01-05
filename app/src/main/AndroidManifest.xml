@@ -23,8 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.CategoryDetailActivity"
-            android:label="@string/title_category_detail"
+            android:name=".ui.activities.ListingsActivity"
             android:parentActivityName=".ui.activities.CategoryListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

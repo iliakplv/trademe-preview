@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.iliakplv.trademepreview.R;
-import com.iliakplv.trademepreview.ui.fragments.CategoryDetailFragment;
+import com.iliakplv.trademepreview.ui.fragments.ListingsFragment;
 
 /**
  * An activity representing a single Category detail screen. This
@@ -16,12 +16,12 @@ import com.iliakplv.trademepreview.ui.fragments.CategoryDetailFragment;
  * item details are presented side-by-side with a list of items
  * in a {@link CategoryListActivity}.
  */
-public class CategoryDetailActivity extends BaseActivity {
+public class ListingsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_detail);
+        setContentView(R.layout.activity_listings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
@@ -48,9 +48,9 @@ public class CategoryDetailActivity extends BaseActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(CategoryDetailFragment.ARG_CATEGORY_NUMBER,
-                    getIntent().getStringExtra(CategoryDetailFragment.ARG_CATEGORY_NUMBER));
-            CategoryDetailFragment fragment = new CategoryDetailFragment();
+            arguments.putString(ListingsFragment.ARG_CATEGORY_NUMBER,
+                    getIntent().getStringExtra(ListingsFragment.ARG_CATEGORY_NUMBER));
+            ListingsFragment fragment = new ListingsFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.category_detail_container, fragment)
@@ -76,8 +76,8 @@ public class CategoryDetailActivity extends BaseActivity {
 
 
     public static void startForCategory(Activity activity, String categoryNumber) {
-        Intent intent = new Intent(activity, CategoryDetailActivity.class);
-        intent.putExtra(CategoryDetailFragment.ARG_CATEGORY_NUMBER, categoryNumber);
+        Intent intent = new Intent(activity, ListingsActivity.class);
+        intent.putExtra(ListingsFragment.ARG_CATEGORY_NUMBER, categoryNumber);
         activity.startActivity(intent);
     }
 }
