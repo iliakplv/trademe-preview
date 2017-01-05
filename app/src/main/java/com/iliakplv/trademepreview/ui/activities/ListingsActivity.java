@@ -10,47 +10,22 @@ import android.view.MenuItem;
 import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.ui.fragments.ListingsFragment;
 
-/**
- * An activity representing a single Category detail screen. This
- * activity is only used narrow width devices. On tablet-size devices,
- * item details are presented side-by-side with a list of items
- * in a {@link CategoryListActivity}.
- */
 public class ListingsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show());
+        setupToolbar();
 
-        // Show the Up button in the action bar.
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
         if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
-            Bundle arguments = new Bundle();
+            final Bundle arguments = new Bundle();
             arguments.putString(ListingsFragment.ARG_CATEGORY_NUMBER,
                     getIntent().getStringExtra(ListingsFragment.ARG_CATEGORY_NUMBER));
-            ListingsFragment fragment = new ListingsFragment();
+            arguments.putString(ListingsFragment.ARG_TITLE,
+                    getIntent().getStringExtra(ListingsFragment.ARG_TITLE));
+            final ListingsFragment fragment = new ListingsFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.category_detail_container, fragment)
@@ -58,16 +33,19 @@ public class ListingsActivity extends BaseActivity {
         }
     }
 
+    private void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
             navigateUpTo(new Intent(this, CategoryListActivity.class));
             return true;
         }
@@ -75,9 +53,10 @@ public class ListingsActivity extends BaseActivity {
     }
 
 
-    public static void startForCategory(Activity activity, String categoryNumber) {
+    public static void startForCategory(Activity activity, String categoryNumber, String title) {
         Intent intent = new Intent(activity, ListingsActivity.class);
         intent.putExtra(ListingsFragment.ARG_CATEGORY_NUMBER, categoryNumber);
+        intent.putExtra(ListingsFragment.ARG_TITLE, title);
         activity.startActivity(intent);
     }
 }

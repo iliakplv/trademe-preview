@@ -1,70 +1,104 @@
 package com.iliakplv.trademepreview.ui.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.iliakplv.trademepreview.R;
-import com.iliakplv.trademepreview.ui.activities.CategoryListActivity;
-import com.iliakplv.trademepreview.ui.activities.ListingsActivity;
+import com.iliakplv.trademepreview.TradeMePreviewApp;
+import com.iliakplv.trademepreview.api.entities.SearchResult;
+import com.iliakplv.trademepreview.ui.adapters.ListingsAdapter;
+import com.iliakplv.trademepreview.ui.presenters.ListingsPresenter;
+import com.iliakplv.trademepreview.ui.views.ListingsView;
 
-/**
- * A fragment representing a single Category detail screen.
- * This fragment is either contained in a {@link CategoryListActivity}
- * in two-pane mode (on tablets) or a {@link ListingsActivity}
- * on handsets.
- */
-public class ListingsFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class ListingsFragment extends Fragment implements ListingsView {
+
+    public static final String ARG_TITLE = "title";
     public static final String ARG_CATEGORY_NUMBER = "category_number";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
-//    private DummyContent.DummyItem mItem;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    @Inject
+    ListingsPresenter presenter;
+
+    @BindView(R.id.listings_list)
+    RecyclerView recyclerView;
+
+    private ListingsAdapter adapter;
+
+    private String categoryNumber;
+
+
     public ListingsFragment() {
     }
 
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        readArguments();
 
-        if (getArguments().containsKey(ARG_CATEGORY_NUMBER)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-//            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_CATEGORY_NUMBER));
+        TradeMePreviewApp.get(getContext()).applicationComponent().inject(this);
+        final View rootView = inflater.inflate(R.layout.fragment_listings, container, false);
+        ButterKnife.bind(this, rootView);
+        presenter.bindView(this);
 
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-//                appBarLayout.setTitle(mItem.content);
+        adapter = new ListingsAdapter(getContext(), this);
+        recyclerView.setAdapter(adapter);
+
+        onLoadingStarted();
+        presenter.loadListingsForCategory(categoryNumber);
+
+        return rootView;
+    }
+
+    private void readArguments() {
+        final Bundle args = getArguments();
+        if (args.containsKey(ARG_CATEGORY_NUMBER)) {
+            categoryNumber = args.getString(ARG_CATEGORY_NUMBER);
+        }
+        if (args.containsKey(ARG_TITLE)) {
+            final Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+            if (toolbar != null) {
+                ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+                toolbar.setTitle(args.getString(ARG_TITLE));
             }
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_listings, container, false);
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.unbindView(this);
+    }
 
-        // Show the dummy content as text in a TextView.
-//        if (mItem != null) {
-//            ((TextView) rootView.findViewById(R.id.category_detail)).setText(mItem.details);
-//        }
+    @Override
+    public void onLoadingStarted() {
+        // todo show progress
+    }
 
-        return rootView;
+    @Override
+    public void onListingsLoaded(SearchResult searchResult) {
+        adapter.setSearchResult(searchResult);
+        // todo check empty, display placeholder
+    }
+
+    @Override
+    public void onLoadingError() {
+        // todo show error
+    }
+
+    @Override
+    public void onListingClicked(int listingId) {
+        // TODO
     }
 }

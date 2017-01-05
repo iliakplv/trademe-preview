@@ -106,7 +106,8 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
 //                    .replace(R.id.category_detail_container, fragment)
 //                    .commit();
         } else {
-            ListingsActivity.startForCategory(this, category.getNumber());
+            // todo pass search string here
+            ListingsActivity.startForCategory(this, category.getNumber(), category.getName());
         }
     }
 

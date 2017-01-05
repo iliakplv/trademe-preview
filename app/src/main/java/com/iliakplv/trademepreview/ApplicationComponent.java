@@ -10,6 +10,8 @@ import com.iliakplv.trademepreview.model.ModelModule;
 import com.iliakplv.trademepreview.network.NetworkModule;
 import com.iliakplv.trademepreview.network.OkHttpInterceptorsModule;
 import com.iliakplv.trademepreview.ui.activities.CategoryListActivity;
+import com.iliakplv.trademepreview.ui.adapters.ListingsAdapter;
+import com.iliakplv.trademepreview.ui.fragments.ListingsFragment;
 import com.iliakplv.trademepreview.ui.presenters.PresenterModule;
 
 import javax.inject.Singleton;
@@ -42,4 +44,8 @@ public interface ApplicationComponent {
     // Injections
 
     void inject(@NonNull CategoryListActivity activity);
+
+    void inject(@NonNull ListingsFragment activity);
+
+    void inject(@NonNull ListingsAdapter activity);
 }

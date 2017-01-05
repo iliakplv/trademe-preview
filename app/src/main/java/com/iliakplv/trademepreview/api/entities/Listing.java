@@ -6,12 +6,12 @@ import com.google.gson.annotations.SerializedName;
 public class Listing {
 
     @SerializedName("ListngId")
-    private int listingId;
+    public int listingId;
 
     @SerializedName("Title")
-    private String title;
+    public String title;
 
     @SerializedName("PictureHref")
-    private String pictureHref;
+    public String pictureHref;
 
 }

@@ -18,6 +18,7 @@ import static com.iliakplv.trademepreview.api.entities.Category.ROOT_CATEGORY_NU
 
 public class CategoriesListPresenter extends Presenter<CategoriesListView> {
 
+    @NonNull
     private CategoriesModel categoriesModel;
     private Stack<String> categoryNumberStack = new Stack<>();
 
