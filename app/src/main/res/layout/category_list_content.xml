@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:background="?android:attr/selectableItemBackground"
               android:orientation="horizontal">
 
     <TextView
@@ -9,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:text="Category Name"
         android:textColor="@color/list_item_text_color"
         android:textSize="@dimen/list_item_text_size"/>
 

@@ -18,14 +18,7 @@
         android:layout_marginRight="16dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/category_path"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:textColor="@color/path_text_color"
-            android:textSize="@dimen/path_text_size"/>
+        <include layout="@layout/category_list_title"/>
 
         <android.support.v7.widget.RecyclerView android:id="@+id/category_list"
                                                 android:name="com.iliakplv.trademepreview.CategoryListFragment"
@@ -35,7 +28,6 @@
                                                 android:layout_height="0dp"
                                                 android:layout_weight="1"
                                                 app:layoutManager="LinearLayoutManager"
-                                                tools:context="com.iliakplv.trademepreview.ui.activities.CategoryListActivity"
                                                 tools:listitem="@layout/category_list_content"/>
     </LinearLayout>
 

@@ -2,9 +2,9 @@ package com.iliakplv.trademepreview.ui.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.iliakplv.trademepreview.R;
@@ -31,6 +31,8 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     RecyclerView recyclerView;
     @BindView(R.id.category_path)
     TextView categoryPath;
+    @BindView(R.id.progress_bar)
+    View progressBar;
 
 
     @Override
@@ -63,24 +65,28 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
 
     private void setupRecyclerView() {
         adapter = new CategoryListAdapter(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onLoadingStarted() {
-        // todo
+        progressBar.setVisibility(View.VISIBLE);
+        categoryPath.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onCategoryLoaded(Category category) {
         adapter.setCategory(category);
         categoryPath.setText(getString(R.string.all_categories, category.getPath()));
+        progressBar.setVisibility(View.INVISIBLE);
+        categoryPath.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onLoadingError() {
         Snackbar.make(recyclerView, R.string.cant_load_data, Snackbar.LENGTH_LONG).show();
+        progressBar.setVisibility(View.INVISIBLE);
+        categoryPath.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -96,7 +102,8 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
 
     @Override
     public void onBackPressed() {
-        if (!onUpClicked()) {
+        final boolean upClickConsumed = onUpClicked();
+        if (!upClickConsumed) {
             super.onBackPressed();
         }
     }

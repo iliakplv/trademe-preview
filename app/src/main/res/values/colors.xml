@@ -3,6 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff9800</color>
-    <color name="path_text_color">#303F9F</color>
+    <color name="path_text_color">@color/colorAccent</color>
     <color name="list_item_text_color">#1f232b</color>
 </resources>
