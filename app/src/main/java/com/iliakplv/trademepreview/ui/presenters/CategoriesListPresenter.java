@@ -33,7 +33,7 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
     }
 
     public Stack<String> getCategoryNumberStack() {
-        return categoryNumberStack;
+        return (Stack<String>) categoryNumberStack.clone();
     }
 
     public void restoreCategoryNumberStack(Stack<String> stack) {
@@ -71,7 +71,7 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
     /**
      * Go up from current position in categories hierarchy
      *
-     * @return true if went up, false if current position is root
+     * @return {@code true} if went up, {@code false} if current position is root
      */
     public boolean goUpInHierarchy() {
         if (categoryNumberStack.isEmpty()) {

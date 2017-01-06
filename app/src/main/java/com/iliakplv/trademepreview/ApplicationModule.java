@@ -23,7 +23,7 @@ public class ApplicationModule {
     @NonNull
     private final Application application;
 
-    public ApplicationModule(@NonNull Application application) {
+    /*package*/ ApplicationModule(@NonNull Application application) {
         this.application = application;
     }
 

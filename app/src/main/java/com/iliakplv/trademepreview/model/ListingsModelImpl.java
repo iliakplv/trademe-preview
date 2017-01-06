@@ -7,8 +7,11 @@ import com.iliakplv.trademepreview.api.entities.SearchResult;
 
 import rx.Single;
 
-
-public class ListingsModelImpl implements ListingsModel {
+/**
+ * This implementation should hide all the logic for data fetching/updating/caching/etc.
+ * In this example it transfers all the calls directly to the API
+ */
+/*package*/ class ListingsModelImpl implements ListingsModel {
 
     private static final int ROWS_LIMIT = 20;
 
@@ -16,7 +19,7 @@ public class ListingsModelImpl implements ListingsModel {
     private TradeMeApi tradeMeApi;
 
 
-    public ListingsModelImpl(@NonNull TradeMeApi tradeMeApi) {
+    /*package*/ ListingsModelImpl(@NonNull TradeMeApi tradeMeApi) {
         this.tradeMeApi = tradeMeApi;
     }
 
