@@ -12,6 +12,8 @@ import com.iliakplv.trademepreview.ui.fragments.ListingsFragment;
 
 public class ListingsActivity extends BaseActivity {
 
+    private static final String ARG_TITLE = "title";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +25,6 @@ public class ListingsActivity extends BaseActivity {
             final Bundle arguments = new Bundle();
             arguments.putString(ListingsFragment.ARG_CATEGORY_NUMBER,
                     getIntent().getStringExtra(ListingsFragment.ARG_CATEGORY_NUMBER));
-            arguments.putString(ListingsFragment.ARG_TITLE,
-                    getIntent().getStringExtra(ListingsFragment.ARG_TITLE));
             final ListingsFragment fragment = new ListingsFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -39,6 +39,7 @@ public class ListingsActivity extends BaseActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(getIntent().getStringExtra(ARG_TITLE));
         }
     }
 
@@ -56,7 +57,7 @@ public class ListingsActivity extends BaseActivity {
     public static void startForCategory(Activity activity, String categoryNumber, String title) {
         Intent intent = new Intent(activity, ListingsActivity.class);
         intent.putExtra(ListingsFragment.ARG_CATEGORY_NUMBER, categoryNumber);
-        intent.putExtra(ListingsFragment.ARG_TITLE, title);
+        intent.putExtra(ARG_TITLE, title);
         activity.startActivity(intent);
     }
 }

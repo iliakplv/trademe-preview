@@ -2,8 +2,6 @@ package com.iliakplv.trademepreview.ui.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -34,8 +32,6 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
 
     private CategoryListAdapter adapter;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.progress_bar)
     View progressBar;
     @BindView(R.id.category_path)
@@ -79,6 +75,7 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     }
 
     private void setupToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
     }
@@ -112,7 +109,6 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     @Override
     public void onCategoryClicked(Category category) {
         onLoadingStarted();
-        removeListingsFragment();
         presenter.loadCategory(category.getNumber());
     }
 
@@ -122,7 +118,6 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
         if (twoPane) {
             Bundle arguments = new Bundle();
             arguments.putString(ListingsFragment.ARG_CATEGORY_NUMBER, category.getNumber());
-            arguments.putString(ListingsFragment.ARG_TITLE, category.getName());
             ListingsFragment fragment = new ListingsFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -133,26 +128,9 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
         }
     }
 
-    private void removeListingsFragment() {
-        if (twoPane) {
-            setupToolbar();
-            final FragmentManager fm = getSupportFragmentManager();
-            final Fragment fragment = fm.findFragmentByTag(ListingsFragment.TAG);
-            if (fragment != null) {
-                fm.beginTransaction()
-                        .remove(fragment)
-                        .commit();
-            }
-        }
-    }
-
     @Override
     public boolean onUpClicked() {
-        final boolean upClickConsumed = presenter.goUpInHierarchy();
-        if (upClickConsumed) {
-            removeListingsFragment();
-        }
-        return upClickConsumed;
+        return presenter.goUpInHierarchy();
     }
 
     @Override

@@ -2,9 +2,7 @@ package com.iliakplv.trademepreview.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +23,6 @@ public class ListingsFragment extends Fragment implements ListingsView {
 
     public static final String TAG = "ListingsFragment";
 
-    public static final String ARG_TITLE = "title";
     public static final String ARG_CATEGORY_NUMBER = "category_number";
 
 
@@ -47,15 +44,14 @@ public class ListingsFragment extends Fragment implements ListingsView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        readArguments();
 
         TradeMePreviewApp.get(getContext()).applicationComponent().inject(this);
         final View rootView = inflater.inflate(R.layout.fragment_listings, container, false);
         ButterKnife.bind(this, rootView);
         presenter.bindView(this);
 
-        adapter = new ListingsAdapter(getContext(), this);
-        recyclerView.setAdapter(adapter);
+        readArguments();
+        setupRecyclerView();
 
         onLoadingStarted();
         presenter.loadListingsForCategory(categoryNumber);
@@ -68,13 +64,11 @@ public class ListingsFragment extends Fragment implements ListingsView {
         if (args.containsKey(ARG_CATEGORY_NUMBER)) {
             categoryNumber = args.getString(ARG_CATEGORY_NUMBER);
         }
-        if (args.containsKey(ARG_TITLE)) {
-            final Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-            if (toolbar != null) {
-                ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-                toolbar.setTitle(args.getString(ARG_TITLE));
-            }
-        }
+    }
+
+    private void setupRecyclerView() {
+        adapter = new ListingsAdapter(getContext(), this);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

@@ -41,8 +41,8 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
         loadCategory(categoryNumberStack.peek(), false);
     }
 
-    private void loadCategory(String number, boolean goingDownInHierarchy) {
-        if (goingDownInHierarchy) {
+    private void loadCategory(String number, boolean pushToStack) {
+        if (pushToStack) {
             categoryNumberStack.push(number);
         }
         final Subscription subscription = categoriesModel.getCategory(number)
