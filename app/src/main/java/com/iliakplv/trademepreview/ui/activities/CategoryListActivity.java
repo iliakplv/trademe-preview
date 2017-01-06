@@ -1,7 +1,6 @@
 package com.iliakplv.trademepreview.ui.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 
 import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.api.entities.Category;
+import com.iliakplv.trademepreview.common.UiUtils;
 import com.iliakplv.trademepreview.ui.adapters.CategoryListAdapter;
 import com.iliakplv.trademepreview.ui.fragments.ListingsFragment;
 import com.iliakplv.trademepreview.ui.presenters.CategoriesListPresenter;
@@ -20,6 +20,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CategoryListActivity extends BaseActivity implements CategoriesListView {
 
@@ -37,10 +38,15 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     @BindView(R.id.category_path)
     TextView categoryPath;
     @BindView(R.id.empty_placeholder)
-    TextView emptyPlaceholder;
+    View emptyPlaceholder;
     @BindView(R.id.category_list)
     RecyclerView recyclerView;
 
+
+    @OnClick(R.id.go_back)
+    public void onEmptyPlaceholderClicked() {
+        onUpClicked();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +111,7 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
 
     @Override
     public void onLoadingError() {
-        Snackbar.make(recyclerView, R.string.cant_load_data, Snackbar.LENGTH_LONG).show();
+        UiUtils.showSnackbar(recyclerView, R.string.cant_load_categories);
         progressBar.setVisibility(View.INVISIBLE);
         categoryPath.setVisibility(View.INVISIBLE);
         emptyPlaceholder.setVisibility(View.GONE);

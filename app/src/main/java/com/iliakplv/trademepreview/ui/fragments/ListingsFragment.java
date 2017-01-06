@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.TradeMePreviewApp;
 import com.iliakplv.trademepreview.api.entities.SearchResult;
+import com.iliakplv.trademepreview.common.UiUtils;
 import com.iliakplv.trademepreview.ui.adapters.ListingsAdapter;
 import com.iliakplv.trademepreview.ui.presenters.ListingsPresenter;
 import com.iliakplv.trademepreview.ui.views.ListingsView;
@@ -29,6 +30,10 @@ public class ListingsFragment extends Fragment implements ListingsView {
     @Inject
     ListingsPresenter presenter;
 
+    @BindView(R.id.progress_bar)
+    View progressBar;
+    @BindView(R.id.empty_placeholder)
+    View emptyPlaceholder;
     @BindView(R.id.listings_list)
     RecyclerView recyclerView;
 
@@ -79,18 +84,22 @@ public class ListingsFragment extends Fragment implements ListingsView {
 
     @Override
     public void onLoadingStarted() {
-        // todo show progress
+        progressBar.setVisibility(View.VISIBLE);
+        emptyPlaceholder.setVisibility(View.GONE);
     }
 
     @Override
     public void onListingsLoaded(SearchResult searchResult) {
         adapter.setSearchResult(searchResult);
-        // todo check empty, display placeholder
+        progressBar.setVisibility(View.GONE);
+        emptyPlaceholder.setVisibility(searchResult.hasListings() ? View.GONE : View.VISIBLE);
     }
 
     @Override
     public void onLoadingError() {
-        // todo show error
+        UiUtils.showSnackbar(recyclerView, R.string.cant_load_listings);
+        progressBar.setVisibility(View.GONE);
+        emptyPlaceholder.setVisibility(View.GONE);
     }
 
     @Override
