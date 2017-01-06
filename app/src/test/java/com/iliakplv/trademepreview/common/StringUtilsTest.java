@@ -1,4 +1,4 @@
-package com.iliakplv.trademepreview;
+package com.iliakplv.trademepreview.common;
 
 import org.junit.Test;
 

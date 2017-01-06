@@ -71,7 +71,6 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
         setupToolbar();
         setupRecyclerView();
 
-        onLoadingStarted();
         if (savedInstanceState != null) {
             final Stack<String> currentCategoryStack =
                     (Stack<String>) savedInstanceState.getSerializable(ARG_CURRENT_CATEGORY_STACK);
@@ -132,7 +131,6 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
 
     @Override
     public void onCategoryClicked(Category category) {
-        onLoadingStarted();
         presenter.loadCategory(category.getNumber());
     }
 

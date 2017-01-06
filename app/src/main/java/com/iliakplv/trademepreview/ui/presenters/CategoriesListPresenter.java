@@ -42,6 +42,10 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
     }
 
     private void loadCategory(@NonNull String number, boolean pushToStack) {
+        final CategoriesListView view = getView();
+        if (view != null) {
+            view.onLoadingStarted();
+        }
         if (pushToStack) {
             categoryNumberStack.push(number);
         }
@@ -83,8 +87,12 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
             return false;
         }
 
-        loadCategory(categoryNumberStack.peek(), false);
-        return true;
+        if (!categoryNumberStack.isEmpty()) {
+            loadCategory(categoryNumberStack.peek(), false);
+            return true;
+        }
+
+        return false;
     }
 
 }
