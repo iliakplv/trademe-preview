@@ -16,12 +16,16 @@ import com.iliakplv.trademepreview.ui.fragments.ListingsFragment;
 import com.iliakplv.trademepreview.ui.presenters.CategoriesListPresenter;
 import com.iliakplv.trademepreview.ui.views.CategoriesListView;
 
+import java.util.Stack;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CategoryListActivity extends BaseActivity implements CategoriesListView {
+
+    private static final String ARG_CURRENT_CATEGORY_STACK = "current_category_stack";
 
     private boolean twoPane;
 
@@ -53,7 +57,19 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
         setupRecyclerView();
 
         onLoadingStarted();
-        presenter.loadCategory(Category.ROOT_CATEGORY_NUMBER);
+        if (savedInstanceState != null) {
+            final Stack<String> currentCategoryStack =
+                    (Stack<String>) savedInstanceState.getSerializable(ARG_CURRENT_CATEGORY_STACK);
+            presenter.restoreCategoryNumberStack(currentCategoryStack);
+        } else {
+            presenter.loadCategory(Category.ROOT_CATEGORY_NUMBER);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(ARG_CURRENT_CATEGORY_STACK, presenter.getCategoryNumberStack());
     }
 
     @Override

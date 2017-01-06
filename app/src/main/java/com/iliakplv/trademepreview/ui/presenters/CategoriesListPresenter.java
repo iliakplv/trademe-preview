@@ -28,13 +28,17 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
     }
 
 
-    /**
-     * Load category by its number
-     *
-     * @param number
-     */
     public void loadCategory(String number) {
         loadCategory(number, true);
+    }
+
+    public Stack<String> getCategoryNumberStack() {
+        return categoryNumberStack;
+    }
+
+    public void restoreCategoryNumberStack(Stack<String> stack) {
+        categoryNumberStack = stack;
+        loadCategory(categoryNumberStack.peek(), false);
     }
 
     private void loadCategory(String number, boolean goingDownInHierarchy) {
