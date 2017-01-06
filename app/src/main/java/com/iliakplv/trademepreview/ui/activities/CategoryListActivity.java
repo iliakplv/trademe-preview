@@ -54,9 +54,9 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     RecyclerView recyclerView;
 
 
-    @OnClick(R.id.go_back)
-    public void onEmptyPlaceholderClicked() {
-        onUpClicked();
+    @OnClick(R.id.show_listings)
+    public void onShowListingsClicked() {
+        onCategorySelected(adapter.getCategory());
     }
 
     @Override
