@@ -1,6 +1,8 @@
 package com.iliakplv.trademepreview.ui.activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,6 +23,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.iliakplv.trademepreview.ui.fragments.ListingsFragment.ARG_CATEGORY_NUMBER;
+import static com.iliakplv.trademepreview.ui.fragments.ListingsFragment.ARG_SEARCH_STRING;
 
 public class CategoryListActivity extends BaseActivity implements CategoriesListView {
 
@@ -125,17 +130,33 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
 
     @Override
     public void onCategorySelected(Category category) {
-        // todo pass search string here
+        showListings(category, null);
+    }
+
+    @Override
+    public void onSearchRequested(Category category, String searchString) {
+        showListings(category, searchString);
+    }
+
+    private void showListings(@NonNull Category category, @Nullable String searchString) {
+        final boolean searchMode = searchString != null;
         if (twoPane) {
-            Bundle arguments = new Bundle();
-            arguments.putString(ListingsFragment.ARG_CATEGORY_NUMBER, category.getNumber());
+            final Bundle args = new Bundle();
+            args.putString(ARG_CATEGORY_NUMBER, category.getNumber());
+            if (searchMode) {
+                args.putString(ARG_SEARCH_STRING, searchString);
+            }
             ListingsFragment fragment = new ListingsFragment();
-            fragment.setArguments(arguments);
+            fragment.setArguments(args);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.category_detail_container, fragment, ListingsFragment.TAG)
                     .commit();
         } else {
-            ListingsActivity.startForCategory(this, category.getNumber(), category.getName());
+            if (searchMode) {
+                ListingsActivity.startForSearch(this, category.getNumber(), searchString);
+            } else {
+                ListingsActivity.startForCategory(this, category.getNumber(), category.getName());
+            }
         }
     }
 

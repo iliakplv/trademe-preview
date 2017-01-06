@@ -10,9 +10,12 @@ import android.view.MenuItem;
 import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.ui.fragments.ListingsFragment;
 
+import static com.iliakplv.trademepreview.ui.fragments.ListingsFragment.ARG_CATEGORY_NUMBER;
+import static com.iliakplv.trademepreview.ui.fragments.ListingsFragment.ARG_SEARCH_STRING;
+
 public class ListingsActivity extends BaseActivity {
 
-    private static final String ARG_TITLE = "title";
+    private static final String ARG_ACTIVITY_TITLE = "title";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +25,16 @@ public class ListingsActivity extends BaseActivity {
         setupToolbar();
 
         if (savedInstanceState == null) {
-            final Bundle arguments = new Bundle();
-            arguments.putString(ListingsFragment.ARG_CATEGORY_NUMBER,
-                    getIntent().getStringExtra(ListingsFragment.ARG_CATEGORY_NUMBER));
+            final Intent intent = getIntent();
+            final Bundle args = new Bundle();
+
+            args.putString(ARG_CATEGORY_NUMBER, intent.getStringExtra(ARG_CATEGORY_NUMBER));
+            if (intent.getExtras().containsKey(ARG_SEARCH_STRING)) {
+                args.putString(ARG_SEARCH_STRING, intent.getStringExtra(ARG_SEARCH_STRING));
+            }
+
             final ListingsFragment fragment = new ListingsFragment();
-            fragment.setArguments(arguments);
+            fragment.setArguments(args);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.category_detail_container, fragment)
                     .commit();
@@ -39,7 +47,7 @@ public class ListingsActivity extends BaseActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(getIntent().getStringExtra(ARG_TITLE));
+            actionBar.setTitle(getIntent().getStringExtra(ARG_ACTIVITY_TITLE));
         }
     }
 
@@ -54,10 +62,18 @@ public class ListingsActivity extends BaseActivity {
     }
 
 
-    public static void startForCategory(Activity activity, String categoryNumber, String title) {
+    public static void startForCategory(Activity activity, String categoryNumber, String categoryName) {
         Intent intent = new Intent(activity, ListingsActivity.class);
-        intent.putExtra(ListingsFragment.ARG_CATEGORY_NUMBER, categoryNumber);
-        intent.putExtra(ARG_TITLE, title);
+        intent.putExtra(ARG_CATEGORY_NUMBER, categoryNumber);
+        intent.putExtra(ARG_ACTIVITY_TITLE, categoryName);
+        activity.startActivity(intent);
+    }
+
+    public static void startForSearch(Activity activity, String categoryNumber, String searchString) {
+        Intent intent = new Intent(activity, ListingsActivity.class);
+        intent.putExtra(ARG_CATEGORY_NUMBER, categoryNumber);
+        intent.putExtra(ARG_SEARCH_STRING, searchString);
+        intent.putExtra(ARG_ACTIVITY_TITLE, "\"" + searchString + "\"");
         activity.startActivity(intent);
     }
 }

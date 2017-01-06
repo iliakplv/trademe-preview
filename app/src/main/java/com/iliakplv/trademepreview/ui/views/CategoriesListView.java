@@ -15,6 +15,8 @@ public interface CategoriesListView {
 
     void onCategorySelected(Category category);
 
+    void onSearchRequested(Category category, String searchString);
+
     /**
      * Button clicked to go up in categories hierarchy (i.e. up arrow or device's home button)
      *

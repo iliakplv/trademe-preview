@@ -44,4 +44,8 @@ public final class StringUtils {
         return charSequence == null || charSequence.length() == 0;
     }
 
+    public static String getNotNull(String string) {
+        return string != null ? string : "";
+    }
+
 }

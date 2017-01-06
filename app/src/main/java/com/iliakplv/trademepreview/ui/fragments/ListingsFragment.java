@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.TradeMePreviewApp;
@@ -25,6 +26,7 @@ public class ListingsFragment extends Fragment implements ListingsView {
     public static final String TAG = "ListingsFragment";
 
     public static final String ARG_CATEGORY_NUMBER = "category_number";
+    public static final String ARG_SEARCH_STRING = "search_string";
 
 
     @Inject
@@ -33,13 +35,15 @@ public class ListingsFragment extends Fragment implements ListingsView {
     @BindView(R.id.progress_bar)
     View progressBar;
     @BindView(R.id.empty_placeholder)
-    View emptyPlaceholder;
+    TextView emptyPlaceholder;
     @BindView(R.id.listings_list)
     RecyclerView recyclerView;
 
     private ListingsAdapter adapter;
 
+    private Mode mode;
     private String categoryNumber;
+    private String searchString;
 
 
     public ListingsFragment() {
@@ -59,7 +63,11 @@ public class ListingsFragment extends Fragment implements ListingsView {
         setupRecyclerView();
 
         onLoadingStarted();
-        presenter.loadListingsForCategory(categoryNumber);
+        if (mode == Mode.Preview) {
+            presenter.loadListingsForCategory(categoryNumber);
+        } else {
+            presenter.loadListingsForSearch(categoryNumber, searchString);
+        }
 
         return rootView;
     }
@@ -68,6 +76,12 @@ public class ListingsFragment extends Fragment implements ListingsView {
         final Bundle args = getArguments();
         if (args.containsKey(ARG_CATEGORY_NUMBER)) {
             categoryNumber = args.getString(ARG_CATEGORY_NUMBER);
+        }
+        if (args.containsKey(ARG_SEARCH_STRING)) {
+            mode = Mode.Search;
+            searchString = args.getString(ARG_SEARCH_STRING);
+        } else {
+            mode = Mode.Preview;
         }
     }
 
@@ -92,7 +106,12 @@ public class ListingsFragment extends Fragment implements ListingsView {
     public void onListingsLoaded(SearchResult searchResult) {
         adapter.setSearchResult(searchResult);
         progressBar.setVisibility(View.GONE);
-        emptyPlaceholder.setVisibility(searchResult.hasListings() ? View.GONE : View.VISIBLE);
+        final boolean emptyList = !searchResult.hasListings();
+        emptyPlaceholder.setVisibility(emptyList ? View.VISIBLE : View.GONE);
+        if (emptyList) {
+            emptyPlaceholder.setText(mode == Mode.Preview ?
+                    R.string.listings_empty : R.string.search_empty);
+        }
     }
 
     @Override
@@ -104,6 +123,11 @@ public class ListingsFragment extends Fragment implements ListingsView {
 
     @Override
     public void onListingClicked(int listingId) {
-        // TODO
+        // listing details are optional
+    }
+
+    private enum Mode {
+        Preview,
+        Search
     }
 }
