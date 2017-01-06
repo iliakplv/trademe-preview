@@ -36,6 +36,8 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     View progressBar;
     @BindView(R.id.category_path)
     TextView categoryPath;
+    @BindView(R.id.empty_placeholder)
+    TextView emptyPlaceholder;
     @BindView(R.id.category_list)
     RecyclerView recyclerView;
 
@@ -89,14 +91,16 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     public void onLoadingStarted() {
         progressBar.setVisibility(View.VISIBLE);
         categoryPath.setVisibility(View.INVISIBLE);
+        emptyPlaceholder.setVisibility(View.GONE);
     }
 
     @Override
     public void onCategoryLoaded(Category category) {
         adapter.setCategory(category);
-        categoryPath.setText(getString(R.string.all_categories, category.getPath()));
         progressBar.setVisibility(View.INVISIBLE);
+        categoryPath.setText(getString(R.string.all_categories, category.getPath()));
         categoryPath.setVisibility(View.VISIBLE);
+        emptyPlaceholder.setVisibility(category.hasSubcategories() ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -104,6 +108,7 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
         Snackbar.make(recyclerView, R.string.cant_load_data, Snackbar.LENGTH_LONG).show();
         progressBar.setVisibility(View.INVISIBLE);
         categoryPath.setVisibility(View.INVISIBLE);
+        emptyPlaceholder.setVisibility(View.GONE);
     }
 
     @Override

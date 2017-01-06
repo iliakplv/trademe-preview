@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Trade Me Preview</string>
-    <string name="title_category_detail">Category Detail</string>
+
     <string name="all_categories">All Categories%s</string>
     <string name="cant_load_data">Cannot load categories</string>
+    <string name="category_empty">This category does not contain any subcategories</string>
+
 </resources>

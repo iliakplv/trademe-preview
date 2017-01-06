@@ -41,7 +41,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     @Override
     public int getItemCount() {
-        if (category != null && category.getSubcategories() != null) {
+        if (category != null && category.hasSubcategories()) {
             return category.getSubcategories().length;
         }
         return 0;

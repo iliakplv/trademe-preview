@@ -20,14 +20,18 @@
 
         <include layout="@layout/category_list_title"/>
 
-        <android.support.v7.widget.RecyclerView android:id="@+id/category_list"
-                                                xmlns:android="http://schemas.android.com/apk/res/android"
-                                                xmlns:tools="http://schemas.android.com/tools"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="0dp"
-                                                android:layout_weight="1"
-                                                app:layoutManager="LinearLayoutManager"
-                                                tools:listitem="@layout/category_list_content"/>
+        <include layout="@layout/category_list_empty"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/category_list"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/category_list_content"/>
+
     </LinearLayout>
 
     <FrameLayout

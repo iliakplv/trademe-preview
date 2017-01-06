@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView android:id="@+id/empty_placeholder"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="match_parent"
+          android:layout_height="100dp"
+          android:gravity="center"
+          android:text="@string/category_empty"
+          android:textColor="@color/empty_placeholder_text_color"
+          android:textSize="@dimen/empty_placeholder_text_size">
+</TextView>

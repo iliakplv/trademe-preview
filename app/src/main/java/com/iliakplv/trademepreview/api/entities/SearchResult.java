@@ -17,4 +17,9 @@ public class SearchResult {
     @SerializedName("List")
     public Listing[] listings;
 
+
+    public boolean hasListings() {
+        return listings != null && listings.length > 0;
+    }
+
 }

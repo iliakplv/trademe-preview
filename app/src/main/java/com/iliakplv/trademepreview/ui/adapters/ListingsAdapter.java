@@ -61,7 +61,7 @@ public class ListingsAdapter extends RecyclerView.Adapter<ListingsAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        if (searchResult != null && searchResult.listings != null) {
+        if (searchResult != null && searchResult.hasListings()) {
             return searchResult.listings.length;
         }
         return 0;

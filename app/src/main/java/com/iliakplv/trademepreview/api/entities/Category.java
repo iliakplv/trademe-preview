@@ -59,4 +59,8 @@ public class Category {
     public Category[] getSubcategories() {
         return subcategories;
     }
+
+    public boolean hasSubcategories() {
+        return subcategories != null && subcategories.length > 0;
+    }
 }
