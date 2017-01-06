@@ -62,7 +62,6 @@ public class ListingsFragment extends Fragment implements ListingsView {
         readArguments();
         setupRecyclerView();
 
-        onLoadingStarted();
         if (mode == Mode.Preview) {
             presenter.loadListingsForCategory(categoryNumber);
         } else {

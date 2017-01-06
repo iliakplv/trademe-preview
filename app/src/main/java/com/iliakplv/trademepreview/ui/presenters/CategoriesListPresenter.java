@@ -28,20 +28,24 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
     }
 
 
-    public void loadCategory(String number) {
-        loadCategory(number, true);
+    public void loadCategory(@NonNull String categoryNumber) {
+        loadCategory(categoryNumber, true);
     }
 
     public Stack<String> getCategoryNumberStack() {
-        return categoryNumberStack;
+        return (Stack<String>) categoryNumberStack.clone();
     }
 
-    public void restoreCategoryNumberStack(Stack<String> stack) {
+    public void restoreCategoryNumberStack(@NonNull Stack<String> stack) {
         categoryNumberStack = stack;
         loadCategory(categoryNumberStack.peek(), false);
     }
 
-    private void loadCategory(String number, boolean pushToStack) {
+    private void loadCategory(@NonNull String number, boolean pushToStack) {
+        final CategoriesListView view = getView();
+        if (view != null) {
+            view.onLoadingStarted();
+        }
         if (pushToStack) {
             categoryNumberStack.push(number);
         }
@@ -71,7 +75,7 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
     /**
      * Go up from current position in categories hierarchy
      *
-     * @return true if went up, false if current position is root
+     * @return {@code true} if went up, {@code false} if current position is root
      */
     public boolean goUpInHierarchy() {
         if (categoryNumberStack.isEmpty()) {
@@ -83,8 +87,12 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
             return false;
         }
 
-        loadCategory(categoryNumberStack.peek(), false);
-        return true;
+        if (!categoryNumberStack.isEmpty()) {
+            loadCategory(categoryNumberStack.peek(), false);
+            return true;
+        }
+
+        return false;
     }
 
 }

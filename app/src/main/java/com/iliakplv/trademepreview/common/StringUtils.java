@@ -1,12 +1,12 @@
 package com.iliakplv.trademepreview.common;
 
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 public final class StringUtils {
 
 
-    // TODO refactor this !!!
     /**
      * Extracts last digit group from full number format
      *
@@ -15,35 +15,36 @@ public final class StringUtils {
      * @param separator separator character or string ("-", " ", etc.)
      * @return Last digit group of a full number,
      * original number if it doesn't contain separators,
-     * original number if it's empty or separator is empty
+     * empty string if original number is empty or separator is empty
      */
+    @NonNull
     public static String getLastDigitGroup(@Nullable String number, @Nullable String separator) {
         if (isEmpty(number) || isEmpty(separator)) {
-            return number;
+            return getNotNull(number);
         }
-        if (!number.contains(separator)) {
-            return number;
+
+        if (number.contains(separator)) {
+            final String[] groups = number.split(separator);
+            if (groups.length > 0) {
+                return groups[groups.length - 1];
+            } else {
+                return "";
+            }
         }
-        final String[] groups = number.split(separator);
-        final int numberOfGroups = groups.length;
-        if (numberOfGroups >= 2) {
-            return isEmpty(groups[numberOfGroups - 1]) ?
-                    groups[numberOfGroups - 2] :
-                    groups[numberOfGroups - 1];
-        }
-        return groups[0];
+
+        return number;
     }
 
     /**
-     * Checks if given char sequence is null or empty
-     *
-     * @param charSequence char sequence
-     * @return true if the char sequence is null or empty
+     * Checks if given char sequence is {@code null} or empty
      */
     public static boolean isEmpty(CharSequence charSequence) {
         return charSequence == null || charSequence.length() == 0;
     }
 
+    /**
+     * Returns given string if it's not {@code null} or empty string otherwise
+     */
     public static String getNotNull(String string) {
         return string != null ? string : "";
     }

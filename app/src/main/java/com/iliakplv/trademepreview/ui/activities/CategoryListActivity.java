@@ -54,9 +54,9 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     RecyclerView recyclerView;
 
 
-    @OnClick(R.id.go_back)
-    public void onEmptyPlaceholderClicked() {
-        onUpClicked();
+    @OnClick(R.id.show_listings)
+    public void onShowListingsClicked() {
+        onCategorySelected(adapter.getCategory());
     }
 
     @Override
@@ -71,11 +71,12 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
         setupToolbar();
         setupRecyclerView();
 
-        onLoadingStarted();
         if (savedInstanceState != null) {
             final Stack<String> currentCategoryStack =
                     (Stack<String>) savedInstanceState.getSerializable(ARG_CURRENT_CATEGORY_STACK);
-            presenter.restoreCategoryNumberStack(currentCategoryStack);
+            if (currentCategoryStack != null) {
+                presenter.restoreCategoryNumberStack(currentCategoryStack);
+            }
         } else {
             presenter.loadCategory(Category.ROOT_CATEGORY_NUMBER);
         }
@@ -130,7 +131,6 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
 
     @Override
     public void onCategoryClicked(Category category) {
-        onLoadingStarted();
         presenter.loadCategory(category.getNumber());
     }
 

@@ -4,12 +4,12 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
-              android:paddingTop="36dp">
+              android:paddingTop="@dimen/empty_listings_padding">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="@dimen/empty_listings_padding"
         android:gravity="center"
         android:text="@string/category_empty"
         android:textColor="@color/empty_placeholder_text_color"
@@ -17,15 +17,21 @@
     </TextView>
 
     <TextView
-        android:id="@+id/go_back"
+        android:id="@+id/show_listings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="?selectableItemBackground"
+        android:drawableLeft="@drawable/ic_arrow_right"
+        android:drawablePadding="6dp"
+        android:drawableStart="@drawable/ic_arrow_right"
+        android:drawableTint="@color/colorAccent"
         android:gravity="center"
         android:padding="12dp"
-        android:text="@string/category_empty_back"
-        android:textColor="@color/empty_placeholder_text_color"
+        android:paddingEnd="32dp"
+        android:paddingRight="32dp"
+        android:text="@string/category_empty_show"
+        android:textColor="@color/list_item_text_color"
         android:textSize="@dimen/empty_placeholder_text_size"
         android:textStyle="bold">
     </TextView>
