@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Listing {
 
-    @SerializedName("ListngId")
+    @SerializedName("ListingId")
     public int listingId;
 
     @SerializedName("Title")
