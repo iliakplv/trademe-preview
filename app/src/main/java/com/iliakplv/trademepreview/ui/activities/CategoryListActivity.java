@@ -75,7 +75,9 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
         if (savedInstanceState != null) {
             final Stack<String> currentCategoryStack =
                     (Stack<String>) savedInstanceState.getSerializable(ARG_CURRENT_CATEGORY_STACK);
-            presenter.restoreCategoryNumberStack(currentCategoryStack);
+            if (currentCategoryStack != null) {
+                presenter.restoreCategoryNumberStack(currentCategoryStack);
+            }
         } else {
             presenter.loadCategory(Category.ROOT_CATEGORY_NUMBER);
         }

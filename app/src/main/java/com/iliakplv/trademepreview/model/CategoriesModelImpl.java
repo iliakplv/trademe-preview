@@ -26,7 +26,7 @@ import static com.iliakplv.trademepreview.common.StringUtils.getLastDigitGroup;
     }
 
     @NonNull
-    public Single<Category> getCategory(String number) {
+    public Single<Category> getCategory(@NonNull String number) {
         return tradeMeApi.getCategory(
                 getLastDigitGroup(number, Category.NUMBER_SEPARATOR),
                 CATEGORY_DEPTH);

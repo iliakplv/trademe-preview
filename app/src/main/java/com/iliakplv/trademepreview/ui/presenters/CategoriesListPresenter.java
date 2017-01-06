@@ -28,20 +28,20 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
     }
 
 
-    public void loadCategory(String number) {
-        loadCategory(number, true);
+    public void loadCategory(@NonNull String categoryNumber) {
+        loadCategory(categoryNumber, true);
     }
 
     public Stack<String> getCategoryNumberStack() {
         return (Stack<String>) categoryNumberStack.clone();
     }
 
-    public void restoreCategoryNumberStack(Stack<String> stack) {
+    public void restoreCategoryNumberStack(@NonNull Stack<String> stack) {
         categoryNumberStack = stack;
         loadCategory(categoryNumberStack.peek(), false);
     }
 
-    private void loadCategory(String number, boolean pushToStack) {
+    private void loadCategory(@NonNull String number, boolean pushToStack) {
         if (pushToStack) {
             categoryNumberStack.push(number);
         }

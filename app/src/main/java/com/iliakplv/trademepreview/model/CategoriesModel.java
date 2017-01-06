@@ -10,6 +10,6 @@ import rx.Single;
 public interface CategoriesModel {
 
     @NonNull
-    Single<Category> getCategory(String number);
+    Single<Category> getCategory(@NonNull String number);
 
 }

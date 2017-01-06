@@ -26,13 +26,13 @@ import rx.Single;
 
     @NonNull
     @Override
-    public Single<SearchResult> getListings(String categoryNumber) {
+    public Single<SearchResult> getListings(@NonNull String categoryNumber) {
         return tradeMeApi.getListings(categoryNumber, ROWS_LIMIT);
     }
 
     @NonNull
     @Override
-    public Single<SearchResult> searchListings(String categoryNumber, String searchString) {
+    public Single<SearchResult> searchListings(@NonNull String categoryNumber, @NonNull String searchString) {
         return tradeMeApi.searchListings(categoryNumber, searchString, ROWS_LIMIT);
     }
 }

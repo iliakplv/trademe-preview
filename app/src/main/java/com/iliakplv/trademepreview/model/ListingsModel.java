@@ -10,9 +10,9 @@ import rx.Single;
 public interface ListingsModel {
 
     @NonNull
-    Single<SearchResult> getListings(String categoryNumber);
+    Single<SearchResult> getListings(@NonNull String categoryNumber);
 
     @NonNull
-    Single<SearchResult> searchListings(String categoryNumber, String searchString);
+    Single<SearchResult> searchListings(@NonNull String categoryNumber, @NonNull String searchString);
 
 }

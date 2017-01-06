@@ -23,10 +23,8 @@ public class ListingsPresenter extends Presenter<ListingsView> {
 
     /**
      * Load listings for given category
-     *
-     * @param categoryNumber
      */
-    public void loadListingsForCategory(String categoryNumber) {
+    public void loadListingsForCategory(@NonNull String categoryNumber) {
         final Subscription subscription = listingsModel.getListings(categoryNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -52,11 +50,8 @@ public class ListingsPresenter extends Presenter<ListingsView> {
 
     /**
      * Load listings for given search string in given category
-     *
-     * @param categoryNumber
-     * @param searchString
      */
-    public void loadListingsForSearch(String categoryNumber, String searchString) {
+    public void loadListingsForSearch(@NonNull String categoryNumber, @NonNull String searchString) {
         final Subscription subscription = listingsModel.searchListings(categoryNumber, searchString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
