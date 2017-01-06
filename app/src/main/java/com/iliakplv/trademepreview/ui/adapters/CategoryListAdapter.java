@@ -22,11 +22,15 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         this.view = view;
     }
 
+
     public void setCategory(Category category) {
         this.category = category;
         notifyDataSetChanged();
     }
 
+    public Category getCategory() {
+        return category;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
