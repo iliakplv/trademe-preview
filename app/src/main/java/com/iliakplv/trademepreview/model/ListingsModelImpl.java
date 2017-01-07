@@ -13,6 +13,8 @@ import rx.Single;
  */
 /*package*/ class ListingsModelImpl implements ListingsModel {
 
+    private static final String SORT_ORDER_DEFAULT = "Default";
+
     private static final int ROWS_LIMIT = 20;
 
     @NonNull
@@ -27,12 +29,12 @@ import rx.Single;
     @NonNull
     @Override
     public Single<SearchResult> getListings(@NonNull String categoryNumber) {
-        return tradeMeApi.getListings(categoryNumber, ROWS_LIMIT);
+        return tradeMeApi.getListings(categoryNumber, SORT_ORDER_DEFAULT, ROWS_LIMIT);
     }
 
     @NonNull
     @Override
     public Single<SearchResult> searchListings(@NonNull String categoryNumber, @NonNull String searchString) {
-        return tradeMeApi.searchListings(categoryNumber, searchString, ROWS_LIMIT);
+        return tradeMeApi.searchListings(categoryNumber, searchString, SORT_ORDER_DEFAULT, ROWS_LIMIT);
     }
 }
