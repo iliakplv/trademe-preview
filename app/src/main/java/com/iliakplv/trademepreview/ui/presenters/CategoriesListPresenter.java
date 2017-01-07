@@ -3,13 +3,11 @@ package com.iliakplv.trademepreview.ui.presenters;
 
 import android.support.annotation.NonNull;
 
-import com.iliakplv.trademepreview.api.entities.Category;
 import com.iliakplv.trademepreview.model.CategoriesModel;
 import com.iliakplv.trademepreview.ui.views.CategoriesListView;
 
 import java.util.Stack;
 
-import rx.SingleSubscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -42,33 +40,29 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
     }
 
     private void loadCategory(@NonNull String number, final boolean pushToStack) {
-        final CategoriesListView view = getView();
-        if (view != null) {
-            view.onLoadingStarted();
+        final CategoriesListView categoriesView = getView();
+        if (categoriesView != null) {
+            categoriesView.onLoadingStarted();
         }
         final Subscription subscription = categoriesModel.getCategory(number)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleSubscriber<Category>() {
-                    @Override
-                    public void onSuccess(Category category) {
-                        if (pushToStack) {
-                            categoryNumberStack.push(number);
+                .subscribe(category -> {
+                            if (pushToStack) {
+                                categoryNumberStack.push(number);
+                            }
+                            final CategoriesListView view = getView();
+                            if (view != null) {
+                                view.onCategoryLoaded(category);
+                            }
+                        },
+                        error -> {
+                            final CategoriesListView view = getView();
+                            if (view != null) {
+                                view.onLoadingError();
+                            }
                         }
-                        final CategoriesListView view = getView();
-                        if (view != null) {
-                            view.onCategoryLoaded(category);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable error) {
-                        final CategoriesListView view = getView();
-                        if (view != null) {
-                            view.onLoadingError();
-                        }
-                    }
-                });
+                );
         addSubscriptions(subscription);
     }
 
