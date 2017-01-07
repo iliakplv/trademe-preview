@@ -14,24 +14,21 @@ import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.TradeMePreviewApp;
 import com.iliakplv.trademepreview.api.entities.Listing;
 import com.iliakplv.trademepreview.api.entities.SearchResult;
+import com.iliakplv.trademepreview.network.ImageLoader;
 import com.iliakplv.trademepreview.ui.views.ListingsView;
-import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
 public class ListingsAdapter extends RecyclerView.Adapter<ListingsAdapter.ViewHolder> {
 
-    private Context context;
-
     @Inject
-    Picasso picasso;
+    ImageLoader imageLoader;
 
     private ListingsView view;
     private SearchResult searchResult;
 
 
     public ListingsAdapter(@NonNull Context context, @NonNull ListingsView view) {
-        this.context = context;
         TradeMePreviewApp.get(context).applicationComponent().inject(this);
         this.view = view;
     }
@@ -52,10 +49,7 @@ public class ListingsAdapter extends RecyclerView.Adapter<ListingsAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Listing listing = searchResult.listings[position];
-        Picasso.with(context)
-                .load(listing.pictureHref)
-                .placeholder(R.drawable.placeholder)
-                .into(holder.thumbnail);
+        imageLoader.loadListingThumbnail(holder.thumbnail, listing.pictureHref);
         holder.title.setText(listing.title);
         holder.listingId.setText(String.valueOf(listing.listingId));
     }

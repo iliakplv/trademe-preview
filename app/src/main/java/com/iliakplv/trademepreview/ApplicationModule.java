@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.iliakplv.trademepreview.network.ImageLoader;
+import com.iliakplv.trademepreview.network.PicassoImageLoader;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Named;
@@ -55,6 +57,13 @@ public class ApplicationModule {
     @Singleton
     public Picasso providePicasso(@NonNull Application tradeMePreviewApp) {
         return new Picasso.Builder(tradeMePreviewApp).build();
+    }
+
+    @Provides
+    @NonNull
+    @Singleton
+    public ImageLoader provideImageLoader(@NonNull Picasso picasso) {
+        return new PicassoImageLoader(picasso);
     }
 
 }
