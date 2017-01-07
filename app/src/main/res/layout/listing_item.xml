@@ -4,7 +4,10 @@
               android:layout_height="wrap_content"
               android:background="?android:attr/selectableItemBackground"
               android:orientation="horizontal"
-              android:padding="2dp">
+              android:paddingBottom="@dimen/listing_item_vertical_padding"
+              android:paddingLeft="@dimen/listing_item_horizontal_padding"
+              android:paddingRight="@dimen/listing_item_horizontal_padding"
+              android:paddingTop="@dimen/listing_item_vertical_padding">
 
     <ImageView
         android:id="@+id/thumbnail"
@@ -14,15 +17,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="6dp"
+        android:layout_marginLeft="@dimen/listing_item_horizontal_padding"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/listing_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:text="Title"
+            android:padding="@dimen/listing_item_vertical_padding"
             android:textColor="@color/list_item_text_color"
             android:textSize="@dimen/listing_title_text_size"/>
 
@@ -30,8 +32,7 @@
             android:id="@+id/listing_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:text="1234567890"
+            android:padding="@dimen/listing_item_vertical_padding"
             android:textColor="@color/list_item_text_color_secondary"
             android:textSize="@dimen/listing_id_text_size"/>
 
