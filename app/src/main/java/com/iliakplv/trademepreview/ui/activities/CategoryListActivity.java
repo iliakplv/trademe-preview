@@ -101,7 +101,7 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     }
 
     private void setupRecyclerView() {
-        adapter = new CategoryListAdapter(this);
+        adapter = new CategoryListAdapter(this, this);
         recyclerView.setAdapter(adapter);
     }
 

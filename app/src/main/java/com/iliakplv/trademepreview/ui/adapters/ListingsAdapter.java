@@ -2,6 +2,8 @@ package com.iliakplv.trademepreview.ui.adapters;
 
 
 import android.content.Context;
+import android.os.Handler;
+import android.support.annotation.AnyThread;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.iliakplv.trademepreview.ApplicationModule;
 import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.TradeMePreviewApp;
 import com.iliakplv.trademepreview.api.entities.Listing;
@@ -18,11 +21,16 @@ import com.iliakplv.trademepreview.network.ImageLoader;
 import com.iliakplv.trademepreview.ui.views.ListingsView;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 public class ListingsAdapter extends RecyclerView.Adapter<ListingsAdapter.ViewHolder> {
 
     @Inject
     ImageLoader imageLoader;
+
+    @Inject
+    @Named(ApplicationModule.MAIN_THREAD_HANDLER)
+    Handler mainThreadHandler;
 
     private ListingsView view;
     private SearchResult searchResult;
@@ -34,9 +42,10 @@ public class ListingsAdapter extends RecyclerView.Adapter<ListingsAdapter.ViewHo
     }
 
 
+    @AnyThread
     public void setSearchResult(SearchResult searchResult) {
         this.searchResult = searchResult;
-        notifyDataSetChanged();
+        mainThreadHandler.post(this::notifyDataSetChanged);
     }
 
 
