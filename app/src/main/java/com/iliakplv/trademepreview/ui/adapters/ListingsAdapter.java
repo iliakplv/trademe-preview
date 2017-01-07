@@ -54,6 +54,7 @@ public class ListingsAdapter extends RecyclerView.Adapter<ListingsAdapter.ViewHo
         final Listing listing = searchResult.listings[position];
         Picasso.with(context)
                 .load(listing.pictureHref)
+                .placeholder(R.drawable.placeholder)
                 .into(holder.thumbnail);
         holder.title.setText(listing.title);
         holder.listingId.setText(String.valueOf(listing.listingId));
