@@ -115,6 +115,7 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     @Override
     public void onCategoryLoaded(Category category) {
         adapter.setCategory(category);
+        recyclerView.setVisibility(category.hasSubcategories() ? View.VISIBLE : View.GONE);
         progressBar.setVisibility(View.INVISIBLE);
         categoryPath.setText(getString(R.string.all_categories, category.getPath()));
         categoryPath.setVisibility(View.VISIBLE);
@@ -125,7 +126,7 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     public void onLoadingError() {
         UiUtils.showSnackbar(recyclerView, R.string.cant_load_categories);
         progressBar.setVisibility(View.INVISIBLE);
-        categoryPath.setVisibility(View.INVISIBLE);
+        categoryPath.setVisibility(View.VISIBLE);
         emptyPlaceholder.setVisibility(View.GONE);
     }
 

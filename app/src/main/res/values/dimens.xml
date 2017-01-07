@@ -2,9 +2,10 @@
 <resources>
     <dimen name="item_width">300dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="path_text_size">16sp</dimen>
     <dimen name="snackbar_text_size">20dp</dimen>
 
+    <dimen name="path_text_size">16sp</dimen>
+    <dimen name="path_text_padding">16dp</dimen>
     <dimen name="list_item_text_size">18sp</dimen>
     <dimen name="empty_placeholder_text_size">22sp</dimen>
     <dimen name="empty_placeholder_text_size_large">24sp</dimen>
