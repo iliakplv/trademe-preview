@@ -41,13 +41,10 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
         loadCategory(categoryNumberStack.peek(), false);
     }
 
-    private void loadCategory(@NonNull String number, boolean pushToStack) {
+    private void loadCategory(@NonNull String number, final boolean pushToStack) {
         final CategoriesListView view = getView();
         if (view != null) {
             view.onLoadingStarted();
-        }
-        if (pushToStack) {
-            categoryNumberStack.push(number);
         }
         final Subscription subscription = categoriesModel.getCategory(number)
                 .subscribeOn(Schedulers.io())
@@ -55,6 +52,9 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
                 .subscribe(new SingleSubscriber<Category>() {
                     @Override
                     public void onSuccess(Category category) {
+                        if (pushToStack) {
+                            categoryNumberStack.push(number);
+                        }
                         final CategoriesListView view = getView();
                         if (view != null) {
                             view.onCategoryLoaded(category);

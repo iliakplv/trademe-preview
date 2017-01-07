@@ -2,13 +2,13 @@
     <string name="app_name">Trade Me Preview</string>
 
     <string name="all_categories">All Categories%s</string>
-    <string name="cant_load_categories">Cannot load categories.\nPlease try again later</string>
-    <string name="cant_load_listings">Cannot load listings.\nPlease try again later</string>
+    <string name="cant_load_categories">Cannot load categories. Please try again later</string>
+    <string name="cant_load_listings">Cannot load listings. Please try again later</string>
     <string name="category_empty">This category has no subcategories</string>
     <string name="category_empty_show">SHOW LISTINGS</string>
     <string name="listings_empty">No listings in this category :(</string>
     <string name="search_empty">No listings found in this category</string>
     <string name="search_title">Search</string>
-    <string name="search_hint">Search listings</string>
+    <string name="search_hint">Search</string>
 
 </resources>

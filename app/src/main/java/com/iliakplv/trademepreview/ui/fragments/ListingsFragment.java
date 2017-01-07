@@ -104,8 +104,9 @@ public class ListingsFragment extends Fragment implements ListingsView {
     @Override
     public void onListingsLoaded(SearchResult searchResult) {
         adapter.setSearchResult(searchResult);
-        progressBar.setVisibility(View.GONE);
         final boolean emptyList = !searchResult.hasListings();
+        recyclerView.setVisibility(emptyList ? View.GONE : View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
         emptyPlaceholder.setVisibility(emptyList ? View.VISIBLE : View.GONE);
         if (emptyList) {
             emptyPlaceholder.setText(mode == Mode.Preview ?

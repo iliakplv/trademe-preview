@@ -21,7 +21,7 @@
         android:layout_gravity="center_vertical"
         android:background="?android:attr/selectableItemBackground"
         android:padding="8dp"
-        android:src="@drawable/ic_arrow_right"
+        android:src="@drawable/ic_list"
         android:tint="@color/colorAccent"/>
 
 </LinearLayout>

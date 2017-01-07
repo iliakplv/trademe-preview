@@ -4,7 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff9800</color>
 
-    <color name="path_text_color">@color/colorAccent</color>
     <color name="list_item_text_color">#1f232b</color>
     <color name="list_item_text_color_secondary">#3e4656</color>
     <color name="empty_placeholder_text_color">#7a8394</color>
