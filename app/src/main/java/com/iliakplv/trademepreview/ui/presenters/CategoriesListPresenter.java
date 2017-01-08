@@ -3,6 +3,7 @@ package com.iliakplv.trademepreview.ui.presenters;
 
 import android.support.annotation.NonNull;
 
+import com.iliakplv.trademepreview.api.entities.Category;
 import com.iliakplv.trademepreview.model.CategoriesModel;
 import com.iliakplv.trademepreview.ui.views.CategoriesListView;
 
@@ -26,6 +27,10 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
     }
 
 
+    public void loadRootCategory() {
+        loadCategory(Category.ROOT_CATEGORY_NUMBER, true);
+    }
+
     public void loadCategory(@NonNull String categoryNumber) {
         loadCategory(categoryNumber, true);
     }
@@ -36,7 +41,11 @@ public class CategoriesListPresenter extends Presenter<CategoriesListView> {
 
     public void restoreCategoryNumberStack(@NonNull Stack<String> stack) {
         categoryNumberStack = stack;
-        loadCategory(categoryNumberStack.peek(), false);
+        if (!categoryNumberStack.isEmpty()) {
+            loadCategory(categoryNumberStack.peek(), false);
+        } else {
+            loadRootCategory();
+        }
     }
 
     private void loadCategory(@NonNull String number, final boolean pushToStack) {
