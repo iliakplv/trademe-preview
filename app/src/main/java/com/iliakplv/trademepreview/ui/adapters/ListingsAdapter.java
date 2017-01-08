@@ -57,7 +57,7 @@ public class ListingsAdapter extends RecyclerView.Adapter<ListingsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Listing listing = searchResult.listings[position];
+        final Listing listing = searchResult.getListing(position);
         imageLoader.loadListingThumbnail(holder.thumbnail, listing.pictureHref);
         holder.title.setText(listing.title);
         holder.listingId.setText(String.valueOf(listing.listingId));
@@ -65,8 +65,8 @@ public class ListingsAdapter extends RecyclerView.Adapter<ListingsAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        if (searchResult != null && searchResult.hasListings()) {
-            return searchResult.listings.length;
+        if (searchResult != null) {
+            return searchResult.listingsCount();
         }
         return 0;
     }
@@ -87,7 +87,7 @@ public class ListingsAdapter extends RecyclerView.Adapter<ListingsAdapter.ViewHo
 
             itemView.setOnClickListener(v -> {
                 final int position = getAdapterPosition();
-                view.onListingClicked(searchResult.listings[position].listingId);
+                view.onListingClicked(searchResult.getListing(position).listingId);
             });
         }
 

@@ -21,7 +21,10 @@ public class OkHttpInterceptorsModule {
     @Singleton
     @NonNull
     public HttpLoggingInterceptor provideHttpLoggingInterceptor() {
-        return new HttpLoggingInterceptor(message -> Timber.d(message));
+        HttpLoggingInterceptor interceptor =
+                new HttpLoggingInterceptor(message -> Timber.d(message));
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return interceptor;
     }
 
     @Provides

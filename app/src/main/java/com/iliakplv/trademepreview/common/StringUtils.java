@@ -25,11 +25,7 @@ public final class StringUtils {
 
         if (number.contains(separator)) {
             final String[] groups = number.split(separator);
-            if (groups.length > 0) {
-                return groups[groups.length - 1];
-            } else {
-                return "";
-            }
+            return groups.length > 0 ? groups[groups.length - 1] : "";
         }
 
         return number;

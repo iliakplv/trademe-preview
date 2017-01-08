@@ -4,8 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.iliakplv.trademepreview.api.ApiModule;
-
 import timber.log.Timber;
 
 
@@ -31,8 +29,7 @@ public class TradeMePreviewApp extends Application {
     @NonNull
     protected DaggerApplicationComponent.Builder prepareApplicationComponent() {
         return DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
-                .apiModule(new ApiModule(BuildConfig.BASE_URL));
+                .applicationModule(new ApplicationModule(this));
     }
 
     @NonNull

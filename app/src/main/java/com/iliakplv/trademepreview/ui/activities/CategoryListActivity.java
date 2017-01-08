@@ -78,7 +78,7 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
                 presenter.restoreCategoryNumberStack(currentCategoryStack);
             }
         } else {
-            presenter.loadCategory(Category.ROOT_CATEGORY_NUMBER);
+            presenter.loadRootCategory();
         }
     }
 

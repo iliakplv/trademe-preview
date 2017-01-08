@@ -17,29 +17,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class ApiModule {
 
-    @NonNull
-    private final ChangeableBaseUrl changeableBaseUrl;
-
-    public ApiModule(@NonNull String baseUrl) {
-        changeableBaseUrl = new ChangeableBaseUrl(baseUrl);
-    }
 
     @Provides
     @NonNull
     @Singleton
-    public ChangeableBaseUrl provideChangeableBaseUrl() {
-        return changeableBaseUrl;
-    }
-
-    @Provides
-    @NonNull
-    @Singleton
-    public TradeMeApi provideTradeMeApi(@NonNull OkHttpClient okHttpClient, @NonNull Gson gson, @NonNull ChangeableBaseUrl changeableBaseUrl) {
+    public TradeMeApi provideTradeMeApi(@NonNull OkHttpClient okHttpClient, @NonNull Gson gson) {
         return new Retrofit.Builder()
-                .baseUrl(changeableBaseUrl)
+                .baseUrl(BuildConfig.BASE_URL)
                 .client(okHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .validateEagerly(BuildConfig.DEBUG)  // check Retrofit configuration at creation time in Debug build.
                 .build()
                 .create(TradeMeApi.class);

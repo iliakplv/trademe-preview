@@ -3,9 +3,6 @@ package com.iliakplv.trademepreview;
 import android.support.annotation.NonNull;
 
 import com.iliakplv.trademepreview.api.ApiModule;
-import com.iliakplv.trademepreview.api.ChangeableBaseUrl;
-import com.iliakplv.trademepreview.api.TradeMeApi;
-import com.iliakplv.trademepreview.model.CategoriesModel;
 import com.iliakplv.trademepreview.model.ModelModule;
 import com.iliakplv.trademepreview.network.NetworkModule;
 import com.iliakplv.trademepreview.network.OkHttpInterceptorsModule;
@@ -29,20 +26,6 @@ import dagger.Component;
         PresenterModule.class,
 })
 public interface ApplicationComponent {
-
-    // Access to URL, API, Model, etc. for testing purposes
-
-    @NonNull
-    ChangeableBaseUrl changeableBaseUrl();
-
-    @NonNull
-    TradeMeApi tradeMeApi();
-
-    @NonNull
-    CategoriesModel categoriesModel();
-
-
-    // Injections
 
     void inject(@NonNull CategoryListActivity activity);
 
