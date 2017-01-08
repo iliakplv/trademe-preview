@@ -115,6 +115,7 @@ public class CategoryListActivity extends BaseActivity implements CategoriesList
     @Override
     public void onCategoryLoaded(Category category) {
         adapter.setCategory(category);
+        recyclerView.scrollToPosition(0);
         recyclerView.setVisibility(category.hasSubcategories() ? View.VISIBLE : View.GONE);
         progressBar.setVisibility(View.INVISIBLE);
         categoryPath.setText(getString(R.string.all_categories, category.getPath()));
