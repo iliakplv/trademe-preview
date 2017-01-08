@@ -6,20 +6,39 @@ import com.google.gson.annotations.SerializedName;
 public class SearchResult {
 
     @SerializedName("TotalCount")
-    public int totalCount;
+    private int totalCount;
 
     @SerializedName("Page")
-    public int page;
+    private int page;
 
     @SerializedName("PageSize")
-    public int pageSize;
+    private int pageSize;
 
     @SerializedName("List")
-    public Listing[] listings;
+    private Listing[] listings;
 
 
-    public boolean hasListings() {
-        return listings != null && listings.length > 0;
+    public int getTotalCount() {
+        return totalCount;
     }
 
+    public int getPage() {
+        return page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public boolean hasListings() {
+        return listingsCount() > 0;
+    }
+
+    public int listingsCount() {
+        return listings != null ? listings.length : 0;
+    }
+
+    public Listing getListing(int position) {
+        return listings[position];
+    }
 }

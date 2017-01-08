@@ -54,13 +54,13 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.categoryName.setText(category.getSubcategories()[position].getName());
+        holder.categoryName.setText(category.getSubcategory(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        if (category != null && category.hasSubcategories()) {
-            return category.getSubcategories().length;
+        if (category != null) {
+            return category.subcategoriesCount();
         }
         return 0;
     }
@@ -78,13 +78,13 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
             itemView.setOnClickListener(v -> {
                 final int position = getAdapterPosition();
-                view.onCategoryClicked(category.getSubcategories()[position]);
+                view.onCategoryClicked(category.getSubcategory(position));
             });
 
             selectButton = itemView.findViewById(R.id.select_button);
             selectButton.setOnClickListener(v -> {
                 final int position = getAdapterPosition();
-                view.onCategorySelected(category.getSubcategories()[position]);
+                view.onCategorySelected(category.getSubcategory(position));
             });
         }
     }
