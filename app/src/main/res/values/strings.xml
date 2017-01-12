@@ -11,4 +11,10 @@
     <string name="search_title">Search</string>
     <string name="search_hint">Search</string>
 
+    <string name="sort">Sort</string>
+    <string name="sort_default">Default order</string>
+    <string name="sort_featured_list">Featured list</string>
+    <string name="sort_title_acs">By title</string>
+    <string name="sort_price_acs">By price</string>
+
 </resources>

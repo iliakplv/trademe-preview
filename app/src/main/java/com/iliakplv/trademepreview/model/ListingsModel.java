@@ -9,10 +9,14 @@ import rx.Single;
 
 public interface ListingsModel {
 
-    @NonNull
-    Single<SearchResult> getListings(@NonNull String categoryNumber);
+    String SORT_ORDER_DEFAULT = "Default";
+    String SORT_ORDER_FEATURED = "FeaturedFirst";
+    String SORT_ORDER_TITLE_ACS = "TitleAsc";
+    String SORT_ORDER_PRICE_ASC = "PriceAsc";
 
     @NonNull
-    Single<SearchResult> searchListings(@NonNull String categoryNumber, @NonNull String searchString);
+    Single<SearchResult> searchListings(@NonNull String categoryNumber,
+                                        @NonNull String searchString,
+                                        @NonNull String sortOrder);
 
 }

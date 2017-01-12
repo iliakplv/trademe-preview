@@ -12,6 +12,7 @@ import com.iliakplv.trademepreview.R;
 import com.iliakplv.trademepreview.TradeMePreviewApp;
 import com.iliakplv.trademepreview.api.entities.SearchResult;
 import com.iliakplv.trademepreview.common.UiUtils;
+import com.iliakplv.trademepreview.model.ListingsModel;
 import com.iliakplv.trademepreview.ui.adapters.ListingsAdapter;
 import com.iliakplv.trademepreview.ui.presenters.ListingsPresenter;
 import com.iliakplv.trademepreview.ui.views.ListingsView;
@@ -43,7 +44,8 @@ public class ListingsFragment extends Fragment implements ListingsView {
 
     private Mode mode;
     private String categoryNumber;
-    private String searchString;
+    private String searchString = "";
+    private String sortOrder = ListingsModel.SORT_ORDER_DEFAULT;
 
 
     public ListingsFragment() {
@@ -62,13 +64,14 @@ public class ListingsFragment extends Fragment implements ListingsView {
         readArguments();
         setupRecyclerView();
 
-        if (mode == Mode.Preview) {
-            presenter.loadListingsForCategory(categoryNumber);
-        } else {
-            presenter.loadListingsForSearch(categoryNumber, searchString);
-        }
+        presenter.loadListingsForSearch(categoryNumber, searchString, sortOrder);
 
         return rootView;
+    }
+
+    public void setSortOrder(String sortOrder) {
+        this.sortOrder = sortOrder;
+        presenter.loadListingsForSearch(categoryNumber, searchString, sortOrder);
     }
 
     private void readArguments() {
@@ -97,6 +100,7 @@ public class ListingsFragment extends Fragment implements ListingsView {
 
     @Override
     public void onLoadingStarted() {
+        recyclerView.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         emptyPlaceholder.setVisibility(View.GONE);
     }
@@ -118,6 +122,7 @@ public class ListingsFragment extends Fragment implements ListingsView {
     @Override
     public void onLoadingError() {
         UiUtils.showSnackbar(recyclerView, R.string.cant_load_listings);
+        recyclerView.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         emptyPlaceholder.setVisibility(View.GONE);
     }
