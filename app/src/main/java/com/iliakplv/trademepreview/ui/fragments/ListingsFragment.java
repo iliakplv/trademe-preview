@@ -1,6 +1,7 @@
 package com.iliakplv.trademepreview.ui.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ public class ListingsFragment extends Fragment implements ListingsView {
 
     public static final String ARG_CATEGORY_NUMBER = "category_number";
     public static final String ARG_SEARCH_STRING = "search_string";
+    public static final String ARG_SORT_ORDER = "sort_order";
 
 
     @Inject
@@ -61,7 +63,7 @@ public class ListingsFragment extends Fragment implements ListingsView {
         ButterKnife.bind(this, rootView);
         presenter.bindView(this);
 
-        readArguments();
+        readArguments(savedInstanceState);
         setupRecyclerView();
 
         presenter.loadListingsForSearch(categoryNumber, searchString, sortOrder);
@@ -69,12 +71,18 @@ public class ListingsFragment extends Fragment implements ListingsView {
         return rootView;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(ARG_SORT_ORDER, sortOrder);
+    }
+
     public void setSortOrder(String sortOrder) {
         this.sortOrder = sortOrder;
         presenter.loadListingsForSearch(categoryNumber, searchString, sortOrder);
     }
 
-    private void readArguments() {
+    private void readArguments(@Nullable Bundle savedInstanceState) {
         final Bundle args = getArguments();
         if (args.containsKey(ARG_CATEGORY_NUMBER)) {
             categoryNumber = args.getString(ARG_CATEGORY_NUMBER);
@@ -84,6 +92,9 @@ public class ListingsFragment extends Fragment implements ListingsView {
             searchString = args.getString(ARG_SEARCH_STRING);
         } else {
             mode = Mode.Preview;
+        }
+        if (savedInstanceState != null) {
+            sortOrder = savedInstanceState.getString(ARG_SORT_ORDER, ListingsModel.SORT_ORDER_DEFAULT);
         }
     }
 
