@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.iliakplv.trademepreview.R;
+import com.iliakplv.trademepreview.model.ListingsModel;
 import com.iliakplv.trademepreview.ui.fragments.ListingsFragment;
 
 import static com.iliakplv.trademepreview.ui.fragments.ListingsFragment.ARG_CATEGORY_NUMBER;
@@ -36,7 +39,7 @@ public class ListingsActivity extends BaseActivity {
             final ListingsFragment fragment = new ListingsFragment();
             fragment.setArguments(args);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.category_detail_container, fragment)
+                    .add(R.id.category_detail_container, fragment, ListingsFragment.TAG)
                     .commit();
         }
     }
@@ -52,13 +55,39 @@ public class ListingsActivity extends BaseActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.listings_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
+
+        switch (id) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.sort_default:
+                getListingsFragment().setSortOrder(ListingsModel.SORT_ORDER_DEFAULT);
+                return true;
+            case R.id.sort_featured:
+                getListingsFragment().setSortOrder(ListingsModel.SORT_ORDER_FEATURED);
+                return true;
+            case R.id.sort_title:
+                getListingsFragment().setSortOrder(ListingsModel.SORT_ORDER_TITLE_ACS);
+                return true;
+            case R.id.sort_price:
+                getListingsFragment().setSortOrder(ListingsModel.SORT_ORDER_PRICE_ASC);
+                return true;
         }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    public ListingsFragment getListingsFragment() {
+        return (ListingsFragment) getSupportFragmentManager().findFragmentByTag(ListingsFragment.TAG);
     }
 
 

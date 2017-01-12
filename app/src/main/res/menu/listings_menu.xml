@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/sort"
+        android:title="@string/sort"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/sort_default"
+                android:title="@string/sort_default"/>
+            <item
+                android:id="@+id/sort_featured"
+                android:title="@string/sort_featured_list"/>
+            <item
+                android:id="@+id/sort_title"
+                android:title="@string/sort_title_acs"/>
+            <item
+                android:id="@+id/sort_price"
+                android:title="@string/sort_price_acs"/>
+        </menu>
+
+    </item>
+</menu>

@@ -19,35 +19,15 @@ public class ListingsPresenter extends Presenter<ListingsView> {
         this.listingsModel = listingsModel;
     }
 
-    /**
-     * Load listings for given category
-     */
-    public void loadListingsForCategory(@NonNull String categoryNumber) {
-        showLoading();
-        final Subscription subscription = listingsModel.getListings(categoryNumber)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> {
-                            final ListingsView view = getView();
-                            if (view != null) {
-                                view.onListingsLoaded(result);
-                            }
-                        },
-                        error -> {
-                            final ListingsView view = getView();
-                            if (view != null) {
-                                view.onLoadingError();
-                            }
-                        });
-        addSubscriptions(subscription);
-    }
 
     /**
      * Load listings for given search string in given category
      */
-    public void loadListingsForSearch(@NonNull String categoryNumber, @NonNull String searchString) {
+    public void loadListingsForSearch(@NonNull String categoryNumber,
+                                      @NonNull String searchString,
+                                      @NonNull String sortOrder) {
         showLoading();
-        final Subscription subscription = listingsModel.searchListings(categoryNumber, searchString)
+        final Subscription subscription = listingsModel.searchListings(categoryNumber, searchString, sortOrder)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {

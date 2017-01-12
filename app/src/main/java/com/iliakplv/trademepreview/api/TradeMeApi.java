@@ -29,14 +29,6 @@ public interface TradeMeApi {
     @GET("Search/General.json")
     @NonNull
     @Headers({AUTH_HEADER})
-    Single<SearchResult> getListings(@Query("category") String categoryNumber,
-                                     @Query("sort_order") String sortOrder,
-                                     @Query("rows") int rows);
-
-
-    @GET("Search/General.json")
-    @NonNull
-    @Headers({AUTH_HEADER})
     Single<SearchResult> searchListings(@Query("category") String categoryNumber,
                                         @Query("search_string") String searchString,
                                         @Query("sort_order") String sortOrder,
