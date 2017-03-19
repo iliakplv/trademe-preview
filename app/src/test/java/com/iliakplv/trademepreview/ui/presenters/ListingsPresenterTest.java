@@ -16,6 +16,7 @@ import rx.android.plugins.RxAndroidPlugins;
 import rx.android.plugins.RxAndroidSchedulersHook;
 import rx.schedulers.Schedulers;
 
+import static com.iliakplv.trademepreview.model.ListingsModel.SORT_ORDER_DEFAULT;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -47,20 +48,20 @@ public class ListingsPresenterTest {
 
     @Test
     public void test_loadListings() {
-        when(listingsModel.getListings(any())).thenReturn(Single.just(new SearchResult()));
+        when(listingsModel.searchListings(any(), any(), any())).thenReturn(Single.just(new SearchResult()));
 
-        listingsPresenter.loadListingsForCategory("0001");
+        listingsPresenter.loadListingsForSearch("0001", "", SORT_ORDER_DEFAULT);
         verify(listingsView).onLoadingStarted();
-        verify(listingsModel).getListings("0001");
+        verify(listingsModel).searchListings("0001", "", SORT_ORDER_DEFAULT);
     }
 
     @Test
     public void test_searchListings() {
-        when(listingsModel.searchListings(any(), any())).thenReturn(Single.just(new SearchResult()));
+        when(listingsModel.searchListings(any(), any(), any())).thenReturn(Single.just(new SearchResult()));
 
-        listingsPresenter.loadListingsForSearch("0002", "test");
+        listingsPresenter.loadListingsForSearch("0002", "test", SORT_ORDER_DEFAULT);
         verify(listingsView).onLoadingStarted();
-        verify(listingsModel).searchListings("0002", "test");
+        verify(listingsModel).searchListings("0002", "test", SORT_ORDER_DEFAULT);
     }
 
     @After
